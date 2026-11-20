@@ -5,8 +5,8 @@ import React, { Suspense, useRef, useMemo, useState, useEffect } from "react";
 import * as THREE from "three";
 import { useFrame, useThree } from "@react-three/fiber";
 import { OrbitControls, Points, PointMaterial } from "@react-three/drei";
+import { useTheme } from "@/context/ThemeContext";
 
-// Dynamic import for Canvas with SSR disabled to prevent "window is not defined"
 const Canvas = dynamic(
   () => import("@react-three/fiber").then((mod) => mod.Canvas),
   { ssr: false }
@@ -17,10 +17,10 @@ interface Scene3DProps {
 }
 
 /**
- * Rotating wireframe icosahedron with an inner complementary core
- * styled in SSAIR's cyber cyan/blue palette.
+ * Rotating wireframe icosahedron with an inner complementary core.
+ * Adapts dynamically to light mode (royal/sapphire blue) and dark mode (neon cyan/electric blue).
  */
-function WireframeIcosahedron() {
+function WireframeIcosahedron({ isDark }: { isDark: boolean }) {
   const outerMeshRef = useRef<THREE.Mesh>(null);
   const innerMeshRef = useRef<THREE.Mesh>(null);
 
@@ -28,15 +28,12 @@ function WireframeIcosahedron() {
     const elapsed = state.clock.getElapsedTime();
 
     if (outerMeshRef.current) {
-      // Slow rotation on multiple axes
       outerMeshRef.current.rotation.x += delta * 0.12;
       outerMeshRef.current.rotation.y += delta * 0.18;
-      // Gentle floating bob
       outerMeshRef.current.position.y = Math.sin(elapsed * 0.7) * 0.12;
     }
 
     if (innerMeshRef.current) {
-      // Counter-rotation for visual depth
       innerMeshRef.current.rotation.x -= delta * 0.08;
       innerMeshRef.current.rotation.y -= delta * 0.14;
       innerMeshRef.current.position.y = Math.sin(elapsed * 0.7) * 0.12;
@@ -45,33 +42,33 @@ function WireframeIcosahedron() {
 
   return (
     <group>
-      {/* Outer primary wireframe icosahedron in vivid cyan */}
+      {/* Outer primary wireframe icosahedron */}
       <mesh ref={outerMeshRef}>
         <icosahedronGeometry args={[2.2, 1]} />
         <meshStandardMaterial
-          color="#00f0ff"
-          emissive="#0284c7"
-          emissiveIntensity={0.25}
+          color={isDark ? "#00f0ff" : "#1d4ed8"}
+          emissive={isDark ? "#0284c7" : "#2563eb"}
+          emissiveIntensity={isDark ? 0.25 : 0.35}
           wireframe
           transparent
-          opacity={0.75}
-          roughness={0.2}
-          metalness={0.8}
+          opacity={isDark ? 0.75 : 0.88}
+          roughness={isDark ? 0.2 : 0.1}
+          metalness={isDark ? 0.8 : 0.9}
         />
       </mesh>
 
-      {/* Inner concentric wireframe dodecahedron in electric blue */}
+      {/* Inner concentric wireframe dodecahedron */}
       <mesh ref={innerMeshRef}>
         <dodecahedronGeometry args={[1.35, 0]} />
         <meshStandardMaterial
-          color="#38bdf8"
-          emissive="#0369a1"
-          emissiveIntensity={0.2}
+          color={isDark ? "#38bdf8" : "#0284c7"}
+          emissive={isDark ? "#0369a1" : "#0284c7"}
+          emissiveIntensity={isDark ? 0.2 : 0.25}
           wireframe
           transparent
-          opacity={0.45}
-          roughness={0.3}
-          metalness={0.7}
+          opacity={isDark ? 0.45 : 0.6}
+          roughness={isDark ? 0.3 : 0.2}
+          metalness={isDark ? 0.7 : 0.8}
         />
       </mesh>
     </group>
@@ -80,11 +77,11 @@ function WireframeIcosahedron() {
 
 /**
  * Floating particle cloud surrounding the central wireframe geometry.
+ * Uses high-contrast royal blue in light mode and glowing cyan in dark mode.
  */
-function FloatingParticles({ count = 1500 }: { count?: number }) {
+function FloatingParticles({ count = 1200, isDark }: { count?: number; isDark: boolean }) {
   const pointsRef = useRef<THREE.Points>(null);
 
-  // Generate spherical point distribution around the icosahedron
   const positions = useMemo(() => {
     const coords = new Float32Array(count * 3);
     for (let i = 0; i < count; i++) {
@@ -104,7 +101,6 @@ function FloatingParticles({ count = 1500 }: { count?: number }) {
 
   useFrame((state, delta) => {
     if (pointsRef.current) {
-      // Slow continuous swirl animation
       pointsRef.current.rotation.x -= delta * 0.03;
       pointsRef.current.rotation.y -= delta * 0.05;
       pointsRef.current.position.y = Math.sin(state.clock.getElapsedTime() * 0.4) * 0.08;
@@ -115,44 +111,50 @@ function FloatingParticles({ count = 1500 }: { count?: number }) {
     <Points ref={pointsRef} positions={positions} stride={3} frustumCulled={false}>
       <PointMaterial
         transparent
-        color="#38bdf8"
-        size={0.035}
+        color={isDark ? "#38bdf8" : "#1e40af"}
+        size={isDark ? 0.035 : 0.045}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={0.75}
-        blending={THREE.AdditiveBlending}
+        opacity={isDark ? 0.75 : 0.85}
+        blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
       />
     </Points>
   );
 }
 
 /**
- * Responsive scene container adapting to varying screen viewports.
+ * Responsive scene container adapting to varying screen viewports and themes.
  */
-function SceneContent() {
+function SceneContent({ isDark }: { isDark: boolean }) {
   const { viewport } = useThree();
-
-  // Scale geometry dynamically for mobile, tablet, and desktop viewports
   const responsiveScale = Math.min(Math.max(viewport.width / 5.5, 0.65), 1.15);
 
   return (
     <group scale={responsiveScale}>
-      {/* Ambient lighting for soft base illumination */}
-      <ambientLight intensity={0.8} />
+      {/* Ambient lighting */}
+      <ambientLight intensity={isDark ? 0.8 : 1.4} />
 
-      {/* Primary cyan point light */}
-      <pointLight position={[10, 10, 10]} intensity={1.6} color="#00f0ff" />
+      {/* Primary point light */}
+      <pointLight
+        position={[10, 10, 10]}
+        intensity={isDark ? 1.6 : 2.0}
+        color={isDark ? "#00f0ff" : "#1d4ed8"}
+      />
 
-      {/* Secondary blue fill point light */}
-      <pointLight position={[-10, -10, -10]} intensity={1.0} color="#3b82f6" />
+      {/* Secondary fill light */}
+      <pointLight
+        position={[-10, -10, -10]}
+        intensity={isDark ? 1.0 : 1.2}
+        color={isDark ? "#3b82f6" : "#0284c7"}
+      />
 
       {/* Central rotating wireframe icosahedron */}
-      <WireframeIcosahedron />
+      <WireframeIcosahedron isDark={isDark} />
 
       {/* Ambient floating particle field */}
-      <FloatingParticles />
+      <FloatingParticles isDark={isDark} />
 
-      {/* Orbit controls with continuous autoRotate and locked zoom/pan */}
+      {/* Orbit controls */}
       <OrbitControls
         enableZoom={false}
         enablePan={false}
@@ -164,21 +166,15 @@ function SceneContent() {
   );
 }
 
-/**
- * Scene3D Component
- *
- * Client-only 3D background scene for the SSAIR hero section.
- * Renders an interactive WebGL canvas with a rotating cyan/blue wireframe
- * icosahedron, ambient particles, and orbit controls behind page content.
- */
 export default function Scene3D({ className = "" }: Scene3DProps) {
   const [mounted, setMounted] = useState(false);
+  const { theme } = useTheme();
+  const isDark = theme === "dark";
 
   useEffect(() => {
     setMounted(true);
   }, []);
 
-  // Return null during server-side rendering to avoid hydration mismatch
   if (!mounted) {
     return null;
   }
@@ -200,7 +196,7 @@ export default function Scene3D({ className = "" }: Scene3DProps) {
           className="w-full h-full"
         >
           <Suspense fallback={null}>
-            <SceneContent />
+            <SceneContent isDark={isDark} />
           </Suspense>
         </Canvas>
       </Suspense>
@@ -208,5 +204,4 @@ export default function Scene3D({ className = "" }: Scene3DProps) {
   );
 }
 
-// Named export for convenience
 export { Scene3D };

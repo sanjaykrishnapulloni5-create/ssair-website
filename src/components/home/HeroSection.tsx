@@ -143,9 +143,9 @@ export function HeroSection() {
       `}</style>
 
       {/* 1. Base Dark Gradients: Gray-950 to transparent */}
-      <div className="absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-950/70 to-transparent pointer-events-none z-[1]" />
-      <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent pointer-events-none z-[1]" />
-      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_45%,rgba(14,165,233,0.12),rgba(3,7,18,0.95))] pointer-events-none z-[1]" />
+      <div className="hero-dark-overlay absolute inset-0 bg-gradient-to-b from-gray-950 via-gray-950/70 to-transparent pointer-events-none z-[1]" />
+      <div className="hero-dark-overlay absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent pointer-events-none z-[1]" />
+      <div className="hero-dark-overlay absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_45%,rgba(14,165,233,0.12),rgba(3,7,18,0.95))] pointer-events-none z-[1]" />
 
       {/* 2. Animated Particle & Grid Background (Pure CSS) */}
       <div
