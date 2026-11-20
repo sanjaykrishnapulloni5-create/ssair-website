@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import ThemeToggle from "@/components/ui/ThemeToggle";
 
 interface NavItem {
   name: string;
@@ -151,8 +152,9 @@ export function Navbar() {
             })}
           </nav>
 
-          {/* Desktop Right CTA Button */}
-          <div className="hidden md:flex items-center">
+          {/* Desktop Right CTA Button & Theme Toggle */}
+          <div className="hidden md:flex items-center gap-3">
+            <ThemeToggle />
             <Link
               href="/contact"
               className="inline-flex items-center justify-center px-4 py-2 text-xs lg:text-sm font-medium rounded-lg text-white bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-[0_0_15px_rgba(6,182,212,0.25)] hover:shadow-[0_0_20px_rgba(6,182,212,0.4)] transition-all duration-300 border border-cyan-400/20"
@@ -161,8 +163,9 @@ export function Navbar() {
             </Link>
           </div>
 
-          {/* Mobile Hamburger Button with Smooth Animation */}
-          <div className="flex items-center md:hidden">
+          {/* Mobile Right: Theme Toggle & Hamburger Button */}
+          <div className="flex items-center gap-2 md:hidden">
+            <ThemeToggle />
             <button
               type="button"
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
@@ -274,6 +277,10 @@ export function Navbar() {
               transition={{ delay: 0.35, duration: 0.3 }}
               className="pt-6 border-t border-gray-800/80 flex flex-col gap-4 mt-6"
             >
+              <div className="flex items-center justify-between p-3 rounded-xl bg-gray-900/60 border border-gray-800/80">
+                <span className="text-xs font-mono uppercase tracking-wider text-gray-400">Display Theme</span>
+                <ThemeToggle showLabel />
+              </div>
               <div className="flex items-center justify-between text-xs text-gray-400 font-mono">
                 <span>Sri Srinivasa AI Robotics</span>
                 <span className="text-cyan-400">Next-Gen Robotics</span>

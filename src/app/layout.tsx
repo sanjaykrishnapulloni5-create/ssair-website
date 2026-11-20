@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { Navbar, Footer } from "@/components/layout";
+import { ThemeProvider } from "@/context/ThemeContext";
 
 export const viewport: Viewport = {
   themeColor: [
@@ -94,9 +95,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth dark" suppressHydrationWarning>
       <body className="min-h-screen bg-gray-950 text-gray-100 flex flex-col antialiased selection:bg-cyan-500/20 selection:text-cyan-400 font-sans">
-        <Navbar />
-        <main className="flex-1 w-full flex flex-col">{children}</main>
-        <Footer />
+        <ThemeProvider>
+          <Navbar />
+          <main className="flex-1 w-full flex flex-col">{children}</main>
+          <Footer />
+        </ThemeProvider>
       </body>
     </html>
   );
