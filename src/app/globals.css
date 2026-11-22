@@ -93,8 +93,17 @@ html.light .bg-gray-950\/60,
 html.light .bg-slate-950\/60,
 html.light .bg-zinc-950\/60,
 html.light .bg-zinc-800\/60,
-html.light .bg-zinc-800\/80 {
-  background-color: #f8fafc !important;
+html.light .bg-zinc-800\/80,
+html.light .bg-zinc-900\/90 {
+  background-color: #f1f5f9 !important;
+  border-color: #cbd5e1 !important;
+}
+
+html.light .bg-cyan-950\/30,
+html.light .bg-cyan-950\/40,
+html.light .bg-cyan-950\/60 {
+  background-color: #e0f2fe !important;
+  border-color: #7dd3fc !important;
 }
 
 /* Borders in Light Mode */

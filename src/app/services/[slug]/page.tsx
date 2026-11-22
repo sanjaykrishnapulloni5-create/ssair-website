@@ -8,6 +8,7 @@ import {
   ServiceCategory,
 } from "@/data/services";
 import AnimatedSection from "@/components/ui/AnimatedSection";
+import ServiceSvgIcon from "@/components/ui/ServiceSvgIcon";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -324,7 +325,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   <span
                     className={`inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-mono font-semibold uppercase tracking-wider border backdrop-blur-md ${theme.badge} ${theme.pillGlow}`}
                   >
-                    <span>{category?.icon ?? "⚡"}</span>
+                    <ServiceSvgIcon category={service.category} className="w-4 h-4 text-cyan-400" />
                     <span>{category?.name ?? service.category}</span>
                   </span>
 

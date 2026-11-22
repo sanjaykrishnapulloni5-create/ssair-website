@@ -5,6 +5,7 @@ import Link from "next/link";
 import { motion } from "framer-motion";
 import type { Service } from "@/data/services";
 import { getCategoryById } from "@/data/services";
+import ServiceSvgIcon from "@/components/ui/ServiceSvgIcon";
 
 export interface ServiceCardProps {
   service?: Service;
@@ -112,11 +113,15 @@ export default function ServiceCard(props: ServiceCardProps) {
         {/* Top Header: Icon & Category Badge */}
         <div className="flex items-center justify-between gap-3 mb-5">
           <div
-            className={`w-13 h-13 rounded-xl border flex items-center justify-center text-2xl shadow-inner transition-transform duration-300 group-hover:scale-105 ${theme.iconBg}`}
+            className={`w-13 h-13 rounded-xl border p-3 flex items-center justify-center shadow-inner transition-transform duration-300 group-hover:scale-105 ${theme.iconBg}`}
           >
-            <span role="img" aria-label={title}>
-              {icon || emoji || "⚡"}
-            </span>
+            <ServiceSvgIcon
+              slug={slug}
+              id={item.id}
+              name={title}
+              category={category}
+              className="w-6 h-6 transition-colors"
+            />
           </div>
 
           <span

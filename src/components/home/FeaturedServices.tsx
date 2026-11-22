@@ -4,6 +4,7 @@ import { useRef } from "react";
 import Link from "next/link";
 import { motion, useInView, type Variants } from "framer-motion";
 import { services } from "@/data/services";
+import ServiceSvgIcon from "@/components/ui/ServiceSvgIcon";
 
 export function FeaturedServices() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -103,11 +104,15 @@ export function FeaturedServices() {
                 <div className="absolute -top-16 -right-16 w-36 h-36 bg-cyan-500/10 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none" />
 
                 <div>
-                  {/* Emoji Icon Container */}
-                  <div className="w-14 h-14 rounded-xl bg-white/[0.05] border border-white/10 flex items-center justify-center text-3xl mb-6 shadow-inner group-hover:scale-110 group-hover:bg-cyan-500/10 group-hover:border-cyan-500/30 transition-all duration-300">
-                    <span role="img" aria-label={service.title}>
-                      {service.icon || service.emoji || "⚡"}
-                    </span>
+                  {/* High-Tech Vector Icon Container matching "Why Choose Sri Srinivasa AI Robotics" */}
+                  <div className="w-13 h-13 rounded-xl bg-zinc-900/90 border border-zinc-700/60 p-3.5 flex items-center justify-center text-cyan-400 group-hover:text-cyan-300 group-hover:border-cyan-500/50 group-hover:bg-cyan-950/40 transition-all duration-300 shadow-inner group-hover:scale-105 mb-6">
+                    <ServiceSvgIcon
+                      slug={service.slug}
+                      id={service.id}
+                      name={service.title}
+                      category={service.category}
+                      className="w-6 h-6 text-cyan-400 group-hover:text-cyan-300 transition-colors"
+                    />
                   </div>
 
                   {/* Service Title */}

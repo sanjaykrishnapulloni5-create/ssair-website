@@ -261,8 +261,8 @@ export function HeroSection() {
         <span>DRDO CAIR &bull; IISc ALUMNI</span>
       </div>
 
-      {/* 4. Scene3D (Positioned absolutely behind text) */}
-      <div className="absolute inset-0 z-0 pointer-events-none overflow-hidden">
+      {/* 4. Scene3D (Positioned behind text with active butter-smooth interaction) */}
+      <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
         <Scene3D />
       </div>
 
