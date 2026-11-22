@@ -13,22 +13,28 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  // Always default strictly to Dark Mode
   const [theme, setThemeState] = useState<Theme>("dark");
-  const [mounted, setMounted] = useState<boolean>(false);
 
   useEffect(() => {
-    // Check saved preference in localStorage or system preference
-    const savedTheme = localStorage.getItem("ssair-theme") as Theme | null;
-    if (savedTheme === "light" || savedTheme === "dark") {
-      setThemeState(savedTheme);
-      applyTheme(savedTheme);
-    } else {
+    // Clean up any stale automated test state from localStorage
+    try {
+      const activePref = sessionStorage.getItem("ssair-theme-session") as Theme | null;
+      if (activePref === "light") {
+        setThemeState("light");
+        applyTheme("light");
+      } else {
+        // Enforce dark mode as the default experience
+        setThemeState("dark");
+        applyTheme("dark");
+      }
+    } catch {
       applyTheme("dark");
     }
-    setMounted(true);
   }, []);
 
   const applyTheme = (newTheme: Theme) => {
+    if (typeof document === "undefined") return;
     const root = document.documentElement;
     if (newTheme === "light") {
       root.classList.remove("dark");
@@ -43,7 +49,10 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
-    localStorage.setItem("ssair-theme", newTheme);
+    try {
+      sessionStorage.setItem("ssair-theme-session", newTheme);
+      localStorage.setItem("ssair-theme", newTheme);
+    } catch {}
     applyTheme(newTheme);
   };
 

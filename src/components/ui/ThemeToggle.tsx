@@ -14,77 +14,65 @@ export default function ThemeToggle({ className = "", showLabel = false }: Theme
   const isDark = theme === "dark";
 
   return (
-    <motion.button
-      type="button"
-      onClick={toggleTheme}
-      whileHover={{ scale: 1.05 }}
-      whileTap={{ scale: 0.95 }}
-      aria-label={`Switch to ${isDark ? "light" : "dark"} mode`}
-      title={`Switch to ${isDark ? "light" : "dark"} mode`}
-      className={`relative inline-flex items-center gap-2 px-3 py-2 rounded-xl text-xs font-medium transition-all duration-300 border ${
-        isDark
-          ? "bg-slate-900/80 border-slate-700/80 text-cyan-400 hover:border-cyan-500/50 hover:shadow-[0_0_15px_rgba(6,182,212,0.2)]"
-          : "bg-white border-slate-200 text-amber-500 hover:border-amber-400/50 hover:shadow-[0_0_15px_rgba(245,158,11,0.2)] shadow-sm"
-      } ${className}`}
-    >
-      {/* Animated Icon Container */}
-      <div className="relative w-5 h-5 flex items-center justify-center">
-        {/* Sun Icon (shown in light mode) */}
-        <motion.svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-4 h-4 text-amber-500 absolute"
-          initial={false}
-          animate={{
-            scale: isDark ? 0 : 1,
-            rotate: isDark ? -90 : 0,
-            opacity: isDark ? 0 : 1,
-          }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
-        >
-          <circle cx="12" cy="12" r="4" />
-          <path d="M12 2v2" />
-          <path d="M12 20v2" />
-          <path d="m4.93 4.93 1.41 1.41" />
-          <path d="m17.66 17.66 1.41 1.41" />
-          <path d="M2 12h2" />
-          <path d="M20 12h2" />
-          <path d="m6.34 17.66-1.41 1.41" />
-          <path d="m19.07 4.93-1.41 1.41" />
-        </motion.svg>
-
-        {/* Moon Icon (shown in dark mode) */}
-        <motion.svg
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="w-4 h-4 text-cyan-400 absolute"
-          initial={false}
-          animate={{
-            scale: isDark ? 1 : 0,
-            rotate: isDark ? 0 : 90,
-            opacity: isDark ? 1 : 0,
-          }}
-          transition={{ duration: 0.25, ease: "easeInOut" }}
-        >
-          <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
-        </motion.svg>
-      </div>
-
+    <div className={`inline-flex items-center gap-2 ${className}`}>
       {showLabel && (
-        <span className="font-mono uppercase tracking-wider text-[11px]">
-          {isDark ? "Dark" : "Light"}
+        <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 select-none">
+          {isDark ? "Dark Mode" : "Light Mode"}
         </span>
       )}
-    </motion.button>
+
+      {/* Modern High-Precision Sliding Switch */}
+      <button
+        type="button"
+        role="switch"
+        aria-checked={!isDark}
+        onClick={toggleTheme}
+        aria-label={`Current theme is ${isDark ? "Dark" : "Light"}. Click to toggle.`}
+        title={isDark ? "Currently Dark Mode. Click to turn on Light Mode." : "Currently Light Mode. Click to turn back to Dark Mode."}
+        className={`relative inline-flex h-7 w-14 shrink-0 cursor-pointer items-center rounded-full p-0.5 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 ${
+          isDark
+            ? "bg-slate-900 border border-slate-700/80 shadow-inner"
+            : "bg-sky-100 border border-sky-300 shadow-inner"
+        }`}
+      >
+        {/* Track Ambient Glow / Accent icons behind thumb */}
+        <span className="absolute left-1.5 flex items-center justify-center pointer-events-none opacity-40">
+          <svg className="w-3.5 h-3.5 text-cyan-400" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+        </span>
+        <span className="absolute right-1.5 flex items-center justify-center pointer-events-none opacity-40">
+          <svg className="w-3.5 h-3.5 text-amber-500" viewBox="0 0 24 24" fill="currentColor">
+            <circle cx="12" cy="12" r="5" />
+            <path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+          </svg>
+        </span>
+
+        {/* Sliding Thumb */}
+        <motion.span
+          layout
+          transition={{ type: "spring", stiffness: 500, damping: 30 }}
+          animate={{ x: isDark ? 0 : 26 }}
+          className={`relative z-10 flex h-6 w-6 items-center justify-center rounded-full transition-shadow duration-200 ${
+            isDark
+              ? "bg-slate-800 text-cyan-400 border border-cyan-400/40 shadow-[0_0_12px_rgba(6,182,212,0.35)]"
+              : "bg-white text-amber-500 border border-amber-300 shadow-[0_0_12px_rgba(245,158,11,0.35)]"
+          }`}
+        >
+          {isDark ? (
+            /* Crescent Moon Icon in Dark Mode */
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+            </svg>
+          ) : (
+            /* Radiant Sun Icon in Light Mode */
+            <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+              <circle cx="12" cy="12" r="4" fill="currentColor" />
+              <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+            </svg>
+          )}
+        </motion.span>
+      </button>
+    </div>
   );
 }
