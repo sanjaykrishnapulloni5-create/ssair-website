@@ -77,7 +77,7 @@ function RoboticManipulator({ isDark }: { isDark: boolean }) {
       new THREE.MeshStandardMaterial({
         color: colors.neonPrimary,
         emissive: colors.glowEmissive,
-        emissiveIntensity: isDark ? 0.8 : 0.6,
+        emissiveIntensity: isDark ? 0.8 : 0.2,
         roughness: 0.1,
         metalness: 0.5,
       }),
@@ -89,10 +89,10 @@ function RoboticManipulator({ isDark }: { isDark: boolean }) {
       new THREE.MeshStandardMaterial({
         color: colors.neonSecondary,
         emissive: colors.glowEmissive,
-        emissiveIntensity: isDark ? 0.6 : 0.4,
+        emissiveIntensity: isDark ? 0.6 : 0.25,
         wireframe: true,
         transparent: true,
-        opacity: isDark ? 0.8 : 0.65,
+        opacity: isDark ? 0.8 : 0.35,
       }),
     [colors.neonSecondary, colors.glowEmissive, isDark]
   );
@@ -395,10 +395,10 @@ function FloatingParticles({ count = 900, isDark }: { count?: number; isDark: bo
       <PointMaterial
         transparent
         color={isDark ? "#38bdf8" : "#1d4ed8"}
-        size={isDark ? 0.035 : 0.045}
+        size={isDark ? 0.035 : 0.03}
         sizeAttenuation={true}
         depthWrite={false}
-        opacity={isDark ? 0.75 : 0.85}
+        opacity={isDark ? 0.75 : 0.25}
         blending={isDark ? THREE.AdditiveBlending : THREE.NormalBlending}
       />
     </Points>
@@ -471,7 +471,9 @@ export default function Scene3D({ className = "" }: Scene3DProps) {
 
   return (
     <div
-      className={`absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-auto ${className}`.trim()}
+      className={`absolute inset-0 w-full h-full z-0 overflow-hidden pointer-events-auto transition-opacity duration-500 ${
+        isDark ? "opacity-100" : "opacity-30"
+      } ${className}`.trim()}
       aria-hidden="true"
     >
       <Suspense fallback={null}>

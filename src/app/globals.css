@@ -42,7 +42,7 @@ html.light section {
   color: #0f172a !important;
 }
 
-/* Hide all dark gradient hero masks in light mode */
+/* Hide dark gradient hero masks in light mode */
 html.light .hero-dark-overlay {
   display: none !important;
 }
@@ -63,7 +63,21 @@ html.light .bg-neutral-900 {
   background-color: #ffffff !important;
 }
 
-/* Translucent Cards & Modules in Light Mode */
+/* Translucent Cards & Modules in Light Mode -> Pure White with Crisp Border & Soft Elevation */
+html.light .bg-zinc-950\/80,
+html.light .bg-zinc-950\/90,
+html.light .bg-zinc-950\/70,
+html.light .bg-zinc-950\/60,
+html.light .bg-zinc-950\/50,
+html.light .bg-zinc-950\/40,
+html.light .bg-gray-950\/80,
+html.light .bg-gray-950\/70,
+html.light .bg-gray-950\/60,
+html.light .bg-gray-950\/40,
+html.light .bg-slate-950\/80,
+html.light .bg-slate-950\/70,
+html.light .bg-slate-950\/60,
+html.light .bg-slate-950\/40,
 html.light .bg-gray-900\/40,
 html.light .bg-gray-900\/50,
 html.light .bg-gray-900\/60,
@@ -79,19 +93,24 @@ html.light .bg-zinc-900\/50,
 html.light .bg-zinc-900\/60,
 html.light .bg-zinc-900\/70,
 html.light .bg-zinc-900\/80,
+html.light .bg-white\/\[0\.02\],
 html.light .bg-white\/\[0\.03\],
 html.light .bg-white\/\[0\.04\],
 html.light .bg-white\/\[0\.05\],
 html.light .bg-white\/\[0\.06\],
 html.light .bg-white\/\[0\.08\] {
   background-color: #ffffff !important;
+  border-color: #e2e8f0 !important;
   box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.06), 0 4px 6px -2px rgba(15, 23, 42, 0.03) !important;
 }
 
+/* Card hover background in Light Mode */
+html.light .group:hover .group-hover\:bg-zinc-900\/90,
+html.light .group:hover .group-hover\:bg-zinc-900 {
+  background-color: #ffffff !important;
+}
+
 /* Inner Well / Secondary Surfaces */
-html.light .bg-gray-950\/60,
-html.light .bg-slate-950\/60,
-html.light .bg-zinc-950\/60,
 html.light .bg-zinc-800\/60,
 html.light .bg-zinc-800\/80,
 html.light .bg-zinc-900\/90 {
@@ -106,6 +125,14 @@ html.light .bg-cyan-950\/60 {
   border-color: #7dd3fc !important;
 }
 
+/* CTA Card in Light Mode */
+html.light #cta .rounded-3xl,
+html.light .from-cyan-950\/80 {
+  background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 50%, #f8fafc 100%) !important;
+  border-color: #7dd3fc !important;
+  box-shadow: 0 20px 40px -15px rgba(2, 132, 199, 0.15) !important;
+}
+
 /* Borders in Light Mode */
 html.light .border-gray-800,
 html.light .border-gray-800\/80,
@@ -113,37 +140,46 @@ html.light .border-slate-800,
 html.light .border-slate-800\/80,
 html.light .border-zinc-800,
 html.light .border-zinc-800\/80,
+html.light .border-white\/\[0\.06\],
 html.light .border-white\/\[0\.08\],
 html.light .border-white\/\[0\.1\] {
   border-color: #e2e8f0 !important;
 }
 
 html.light .border-gray-700,
+html.light .border-gray-700\/50,
 html.light .border-gray-700\/60,
 html.light .border-slate-700,
 html.light .border-slate-700\/80,
 html.light .border-zinc-700,
+html.light .border-zinc-700\/50,
 html.light .border-zinc-700\/60 {
   border-color: #cbd5e1 !important;
 }
 
-/* Typography Overrides in Light Mode */
-html.light .text-white {
-  color: #0f172a !important;
-}
+/* ==========================================================================
+   TYPOGRAPHY VISIBILITY & CONTRAST IN LIGHT MODE (WCAG AAA)
+   ========================================================================== */
 
+/* All Headings & Primary Titles */
+html.light h1,
+html.light h2,
+html.light h3,
+html.light h4,
+html.light h5,
+html.light h6,
+html.light .text-white,
 html.light .text-gray-100,
 html.light .text-slate-100,
-html.light .text-zinc-100 {
-  color: #0f172a !important;
-}
-
+html.light .text-zinc-100,
 html.light .text-gray-200,
 html.light .text-slate-200,
 html.light .text-zinc-200 {
-  color: #1e293b !important;
+  color: #0f172a !important;
 }
 
+/* Paragraphs, Descriptions & Body Text */
+html.light p,
 html.light .text-gray-300,
 html.light .text-slate-300,
 html.light .text-zinc-300 {
@@ -162,10 +198,24 @@ html.light .text-zinc-500 {
   color: #64748b !important;
 }
 
+/* Strong bold text inside cards */
+html.light strong,
+html.light b {
+  color: #0f172a !important;
+}
+
+/* Gradient Titles -> High-Contrast Royal Sapphire to Cyan-Teal */
+html.light .bg-clip-text {
+  background-image: linear-gradient(135deg, #0369a1 0%, #1d4ed8 50%, #0f766e 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: none !important;
+}
+
 /* High-Contrast Accents for Light Mode */
 html.light .text-cyan-400,
 html.light .text-cyan-300 {
-  color: #0284c7 !important;
+  color: #0369a1 !important;
 }
 
 html.light .text-blue-400,
@@ -182,11 +232,26 @@ html.light .text-indigo-400 {
   color: #4338ca !important;
 }
 
+/* Buttons with Solid/Gradient Backgrounds must retain readable text */
+html.light a.bg-gradient-to-r span,
+html.light button.bg-gradient-to-r span,
+html.light .from-blue-600 span {
+  color: #ffffff !important;
+}
+
+/* Outline CTA button in Light Mode */
+html.light a.border-cyan-500\/40 {
+  background-color: #ffffff !important;
+  border-color: #7dd3fc !important;
+  color: #0284c7 !important;
+}
+
 /* Light Mode Badges, Tags & Pills */
 html.light .bg-cyan-950\/60,
 html.light .bg-cyan-950\/50,
 html.light .bg-cyan-950\/40,
 html.light .bg-cyan-950\/30,
+html.light .bg-cyan-900\/40,
 html.light .bg-cyan-500\/10 {
   background-color: #f0f9ff !important;
   color: #0369a1 !important;
@@ -195,7 +260,8 @@ html.light .bg-cyan-500\/10 {
 html.light .border-cyan-800\/50,
 html.light .border-cyan-500\/20,
 html.light .border-cyan-500\/25,
-html.light .border-cyan-500\/30 {
+html.light .border-cyan-500\/30,
+html.light .border-cyan-400\/40 {
   border-color: #bae6fd !important;
 }
 
@@ -217,29 +283,22 @@ html.light .bg-purple-500\/10 {
   border-color: #e9d5ff !important;
 }
 
-/* Gradient Overrides in Light Mode */
-html.light .from-gray-950,
-html.light .from-zinc-950,
-html.light .from-slate-950 {
-  --tw-gradient-from: #ffffff !important;
-  --tw-gradient-to: rgba(255, 255, 255, 0) !important;
-  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to) !important;
+/* 3D Model Opacity in Light Mode: Subtly reduced so text has 100% clarity */
+html.light canvas {
+  opacity: 0.3 !important;
+  transition: opacity 0.4s ease;
 }
 
-html.light .via-gray-950\/70,
-html.light .via-gray-950\/40,
-html.light .via-zinc-950\/70,
-html.light .via-slate-950\/70 {
-  --tw-gradient-via: rgba(255, 255, 255, 0.8) !important;
-}
-
-/* Ambient glow blobs softened on white */
+/* Soften ambient decorative glows in Light Mode */
 html.light .bg-cyan-600\/15,
+html.light .bg-cyan-600\/20,
 html.light .bg-cyan-500\/10,
 html.light .bg-blue-700\/15,
+html.light .bg-blue-600\/15,
 html.light .bg-blue-600\/10,
-html.light .bg-indigo-600\/10 {
-  opacity: 0.25 !important;
+html.light .bg-indigo-600\/10,
+html.light .bg-indigo-600\/15 {
+  opacity: 0.15 !important;
 }
 
 /* Light mode Navbar glass */
