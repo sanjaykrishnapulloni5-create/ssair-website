@@ -2,135 +2,64 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion, type Variants } from "framer-motion";
-import Scene3D from "@/components/home/Scene3D";
 
 export function HeroSection() {
-  const containerVariants: Variants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.05,
-      },
-    },
-  };
-
-  const itemFadeUp: Variants = {
-    hidden: { opacity: 0, y: 20 },
-    visible: {
-      opacity: 1,
-      y: 0,
-      transition: {
-        duration: 0.6,
-        ease: [0.22, 1, 0.36, 1],
-      },
-    },
-  };
-
   return (
-    <section className="relative min-h-[92vh] w-full flex items-center justify-center overflow-hidden bg-slate-950 text-white selection:bg-cyan-500/30 selection:text-cyan-200">
-      {/* 1. Base Subtle Ambient Lighting */}
-      <div className="hero-dark-overlay absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950 pointer-events-none z-[1]" />
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none z-[1]" />
-      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[250px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none z-[1]" />
+    <section className="relative w-full min-h-[85vh] flex items-center bg-white dark:bg-slate-950 pt-28 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden">
+      {/* Soft gradient blob behind content */}
+      <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-100 dark:bg-blue-900/20 rounded-full blur-[120px] opacity-50 -translate-y-1/3 translate-x-1/4 pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-indigo-100 dark:bg-indigo-900/20 rounded-full blur-[100px] opacity-40 translate-y-1/3 -translate-x-1/4 pointer-events-none" />
 
-      {/* 2. Responsive 3D Scene */}
-      <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
-        <Scene3D />
-      </div>
+      <div className="relative max-w-6xl mx-auto w-full text-center">
+        {/* Small badge */}
+        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-gray-200 dark:border-slate-700 bg-gray-50 dark:bg-slate-800 text-sm text-gray-600 dark:text-slate-300 mb-8">
+          <span className="w-2 h-2 rounded-full bg-blue-500" />
+          Sister company of Sri Saraswathi AI &amp; Robotics
+        </div>
 
-      {/* 3. Main Content: Clear, Elegant, Easy to Understand */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 flex flex-col items-center text-center">
-        <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          className="flex flex-col items-center"
-        >
-          {/* Simple, Clear Relationship Badge */}
-          <motion.div variants={itemFadeUp} className="mb-6">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-cyan-500/30 backdrop-blur-md shadow-md">
-              <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-              <span className="text-xs sm:text-sm font-medium tracking-wide text-cyan-300">
-                Sri Srinivasa AI Robotics • Sister Company of Sri Saraswathi AI &amp; Robotics
-              </span>
-            </div>
-          </motion.div>
+        {/* Big headline */}
+        <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold tracking-tight text-gray-900 dark:text-white leading-[1.1] mb-6 max-w-5xl mx-auto">
+          Autonomous Robotics &amp;{" "}
+          <span className="text-blue-600 dark:text-blue-400">
+            Artificial Intelligence
+          </span>
+        </h1>
 
-          {/* Clean, Understandable Heading */}
-          <motion.h1
-            variants={itemFadeUp}
-            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.15] text-white max-w-4xl mb-6"
+        {/* Simple subtitle */}
+        <p className="text-lg sm:text-xl text-gray-600 dark:text-slate-300 max-w-2xl mx-auto mb-10 leading-relaxed">
+          We build intelligent robots, defense drones, and computer vision systems. Founded by former DRDO CAIR scientist and IISc alumnus.
+        </p>
+
+        {/* Two buttons */}
+        <div className="flex flex-wrap items-center justify-center gap-4 mb-16">
+          <Link
+            href="/products"
+            className="px-8 py-3.5 rounded-full font-semibold text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-500/20 transition-all"
           >
-            Intelligent Robotics &amp; AI,{" "}
-            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent">
-              Built for the Real World.
-            </span>
-          </motion.h1>
-
-          {/* Simple, Everyday English Description */}
-          <motion.p
-            variants={itemFadeUp}
-            className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl leading-relaxed font-normal mb-8"
+            Explore Products
+          </Link>
+          <Link
+            href="/about"
+            className="px-8 py-3.5 rounded-full font-semibold text-gray-700 dark:text-slate-200 bg-white dark:bg-slate-800 border border-gray-200 dark:border-slate-700 hover:border-blue-300 dark:hover:border-blue-500 shadow-sm transition-all"
           >
-            We design and build autonomous robots, smart drones, and computer vision systems for defense and industries. 
-            Founded by former DRDO CAIR scientist Dr. Dadireddy Srinivasulu Reddy (IISc alumnus).
-          </motion.p>
+            Learn About Us
+          </Link>
+        </div>
 
-          {/* Primary Action Buttons */}
-          <motion.div
-            variants={itemFadeUp}
-            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto mb-12"
-          >
-            <Link
-              href="/products"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-white text-base bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-lg shadow-cyan-500/25 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
-            >
-              <span>Explore Our Products</span>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-              </svg>
-            </Link>
-
-            <Link
-              href="/contact"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-slate-200 hover:text-white text-base border border-slate-700 hover:border-cyan-400 bg-slate-900/70 hover:bg-slate-800/80 backdrop-blur-md transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
-            >
-              <span>Contact Our Team</span>
-            </Link>
-          </motion.div>
-
-          {/* 4 Simple, High-Trust Pillars Everyone Understands */}
-          <motion.div
-            variants={itemFadeUp}
-            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 w-full max-w-4xl text-left"
-          >
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
-              <span className="text-xl sm:text-2xl font-bold text-cyan-400 block">15+ Years</span>
-              <span className="text-xs text-slate-400 mt-1 block">Defense &amp; DRDO Heritage</span>
+        {/* Simple stats row */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 max-w-3xl mx-auto">
+          {[
+            { number: "15+", label: "Years DRDO Heritage" },
+            { number: "100%", label: "Made in India" },
+            { number: "50+", label: "Projects Delivered" },
+            { number: "2", label: "Companies in Synergy" },
+          ].map((stat) => (
+            <div key={stat.label} className="text-center">
+              <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">{stat.number}</div>
+              <div className="text-sm text-gray-500 dark:text-slate-400 mt-1">{stat.label}</div>
             </div>
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
-              <span className="text-xl sm:text-2xl font-bold text-blue-400 block">100% Indigenous</span>
-              <span className="text-xs text-slate-400 mt-1 block">Designed &amp; Made in India</span>
-            </div>
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
-              <span className="text-xl sm:text-2xl font-bold text-cyan-300 block">IISc &amp; CAIR</span>
-              <span className="text-xs text-slate-400 mt-1 block">Top Scientist Leadership</span>
-            </div>
-            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
-              <span className="text-xl sm:text-2xl font-bold text-teal-300 block">2 Companies</span>
-              <span className="text-xs text-slate-400 mt-1 block">Sri Saraswathi AI &amp; SSAIR</span>
-            </div>
-          </motion.div>
-        </motion.div>
-      </div>
-
-      {/* Subtle Scroll Cue */}
-      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-none opacity-40 z-[2]">
-        <div className="w-1 h-3 rounded-full bg-cyan-400 animate-bounce" />
-        <span className="text-[10px] tracking-widest uppercase text-slate-400">Scroll Down</span>
+          ))}
+        </div>
       </div>
     </section>
   );

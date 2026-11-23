@@ -2,7 +2,6 @@
 
 import React from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
 
 export type ProjectStatus = "Deployed" | "In Development" | "Prototype" | string;
 
@@ -23,121 +22,93 @@ export default function ProjectCard({
   category,
   technologies,
   status,
-  imageGradient = "from-cyan-950/60 via-blue-950/50 to-slate-950",
+  imageGradient = "from-blue-600/10 to-indigo-600/10",
   imageUrl,
-  index = 0,
 }: ProjectCardProps) {
   const getStatusConfig = (statusStr: string) => {
     const s = statusStr.toLowerCase().trim();
     if (s === "deployed") {
       return {
-        badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
-        dot: "bg-emerald-400",
+        badge: "bg-emerald-50 dark:bg-emerald-950/50 text-emerald-700 dark:text-emerald-300 border-emerald-200 dark:border-emerald-800",
         label: "Ready & Deployed",
-        isPulse: true,
       };
     }
-    if (s === "in development" || s === "development" || s === "in-dev") {
+    if (s.includes("development") || s.includes("in-dev")) {
       return {
-        badge: "bg-amber-500/10 text-amber-300 border-amber-500/30",
-        dot: "bg-amber-400",
+        badge: "bg-amber-50 dark:bg-amber-950/50 text-amber-700 dark:text-amber-300 border-amber-200 dark:border-amber-800",
         label: "In Development",
-        isPulse: false,
       };
     }
     return {
-      badge: "bg-blue-500/10 text-blue-300 border-blue-500/30",
-      dot: "bg-blue-400",
+      badge: "bg-blue-50 dark:bg-blue-950/50 text-blue-700 dark:text-blue-300 border-blue-200 dark:border-blue-800",
       label: statusStr || "Prototype",
-      isPulse: false,
     };
   };
 
   const statusConfig = getStatusConfig(status);
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.45, delay: (index % 3) * 0.08, ease: "easeOut" }}
-      whileHover={{ y: -6 }}
-      className="group relative flex flex-col h-full rounded-2xl overflow-hidden bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-cyan-500/5"
-    >
-      {/* Product Image Area */}
-      <div className="relative w-full h-52 overflow-hidden bg-slate-950 flex-shrink-0">
+    <div className="group flex flex-col h-full rounded-2xl overflow-hidden bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-lg transition-all duration-200">
+      {/* Product Image */}
+      <div className="relative w-full h-52 overflow-hidden bg-slate-100 dark:bg-slate-800">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
         ) : (
-          <div
-            className={`w-full h-full bg-gradient-to-br ${imageGradient}`}
-          />
+          <div className={`w-full h-full bg-gradient-to-br ${imageGradient}`} />
         )}
 
-        {/* Category Pill - Top Left */}
-        <div className="absolute top-3.5 left-3.5 z-10">
-          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-900/80 backdrop-blur-md border border-slate-700/80 text-cyan-300 shadow-sm">
+        <div className="absolute top-3 left-3">
+          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-white/90 dark:bg-slate-900/90 text-slate-800 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700">
             {category}
           </span>
         </div>
 
-        {/* Status Badge - Top Right */}
-        <div className="absolute top-3.5 right-3.5 z-10">
-          <span
-            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-md shadow-sm ${statusConfig.badge}`}
-          >
-            <span
-              className={`w-1.5 h-1.5 rounded-full ${statusConfig.dot} ${
-                statusConfig.isPulse ? "animate-pulse" : ""
-              }`}
-            />
-            <span>{statusConfig.label}</span>
+        <div className="absolute top-3 right-3">
+          <span className={`px-2.5 py-0.5 rounded-full text-xs font-medium border shadow-sm ${statusConfig.badge}`}>
+            {statusConfig.label}
           </span>
         </div>
       </div>
 
-      {/* Card Content Area */}
-      <div className="flex flex-col flex-1 p-6 gap-4">
-        {/* Title */}
-        <div>
-          <h3 className="text-xl font-bold text-white group-hover:text-cyan-300 transition-colors duration-200 tracking-tight leading-snug">
-            {title}
-          </h3>
-        </div>
+      {/* Card Body */}
+      <div className="flex flex-col flex-1 p-6 gap-3">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors leading-snug">
+          {title}
+        </h3>
 
-        {/* Description */}
-        <p className="text-sm text-slate-300 leading-relaxed flex-grow">
+        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed flex-grow">
           {description}
         </p>
 
-        {/* Key Features / Technologies */}
-        <div className="pt-2">
-          <div className="flex flex-wrap gap-1.5">
-            {technologies.map((tech) => (
-              <span
-                key={tech}
-                className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800/90 text-slate-300 border border-slate-700/70"
-              >
-                {tech}
-              </span>
-            ))}
-          </div>
+        {/* Tags */}
+        <div className="flex flex-wrap gap-1.5 pt-2">
+          {technologies.map((tech) => (
+            <span
+              key={tech}
+              className="px-2.5 py-1 text-xs font-medium rounded-md bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
 
-        {/* Card Footer: Simple Action Link */}
-        <div className="pt-4 border-t border-slate-800/80 mt-auto flex items-center justify-between text-xs font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors">
-          <Link href="/contact" className="inline-flex items-center gap-1 hover:underline">
+        {/* Footer Link */}
+        <div className="pt-4 mt-2 border-t border-slate-100 dark:border-slate-800">
+          <Link
+            href="/contact"
+            className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 inline-flex items-center gap-1"
+          >
             <span>Inquire About This Product</span>
-            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+            <span>→</span>
           </Link>
         </div>
       </div>
-    </motion.div>
+    </div>
   );
 }
 

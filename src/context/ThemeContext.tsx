@@ -13,37 +13,38 @@ interface ThemeContextType {
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Always default strictly to Dark Mode
-  const [theme, setThemeState] = useState<Theme>("dark");
+  // Default to light mode for a clean, accessible, elegant look
+  const [theme, setThemeState] = useState<Theme>("light");
 
   useEffect(() => {
-    // Clean up any stale automated test state from localStorage
     try {
       const activePref = sessionStorage.getItem("ssair-theme-session") as Theme | null;
-      if (activePref === "light") {
-        setThemeState("light");
-        applyTheme("light");
-      } else {
-        // Enforce dark mode as the default experience
+      const localPref = localStorage.getItem("ssair-theme") as Theme | null;
+      const savedTheme = activePref || localPref;
+      
+      if (savedTheme === "dark") {
         setThemeState("dark");
         applyTheme("dark");
+      } else {
+        setThemeState("light");
+        applyTheme("light");
       }
     } catch {
-      applyTheme("dark");
+      applyTheme("light");
     }
   }, []);
 
   const applyTheme = (newTheme: Theme) => {
     if (typeof document === "undefined") return;
     const root = document.documentElement;
-    if (newTheme === "light") {
-      root.classList.remove("dark");
-      root.classList.add("light");
-      root.style.colorScheme = "light";
-    } else {
+    if (newTheme === "dark") {
       root.classList.remove("light");
       root.classList.add("dark");
       root.style.colorScheme = "dark";
+    } else {
+      root.classList.remove("dark");
+      root.classList.add("light");
+      root.style.colorScheme = "light";
     }
   };
 
