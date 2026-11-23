@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Link from "next/link";
 import { motion } from "framer-motion";
 
 export type ProjectStatus = "Deployed" | "In Development" | "Prototype" | string;
@@ -26,29 +27,27 @@ export default function ProjectCard({
   imageUrl,
   index = 0,
 }: ProjectCardProps) {
-  // Status styling logic: green = Deployed, yellow = In Development, blue = Prototype
   const getStatusConfig = (statusStr: string) => {
     const s = statusStr.toLowerCase().trim();
     if (s === "deployed") {
       return {
-        badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30 shadow-[0_0_12px_rgba(16,185,129,0.15)]",
-        dot: "bg-emerald-400 shadow-[0_0_8px_rgba(52,211,153,0.8)]",
-        label: "Deployed",
+        badge: "bg-emerald-500/10 text-emerald-400 border-emerald-500/30",
+        dot: "bg-emerald-400",
+        label: "Ready & Deployed",
         isPulse: true,
       };
     }
     if (s === "in development" || s === "development" || s === "in-dev") {
       return {
-        badge: "bg-amber-500/10 text-amber-300 border-amber-500/30 shadow-[0_0_12px_rgba(245,158,11,0.15)]",
-        dot: "bg-amber-400 shadow-[0_0_8px_rgba(251,191,36,0.8)]",
+        badge: "bg-amber-500/10 text-amber-300 border-amber-500/30",
+        dot: "bg-amber-400",
         label: "In Development",
         isPulse: false,
       };
     }
-    // Prototype or default to blue
     return {
-      badge: "bg-blue-500/10 text-blue-300 border-blue-500/30 shadow-[0_0_12px_rgba(59,130,246,0.15)]",
-      dot: "bg-blue-400 shadow-[0_0_8px_rgba(96,165,250,0.8)]",
+      badge: "bg-blue-500/10 text-blue-300 border-blue-500/30",
+      dot: "bg-blue-400",
       label: statusStr || "Prototype",
       isPulse: false,
     };
@@ -58,44 +57,31 @@ export default function ProjectCard({
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 25 }}
+      initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-40px" }}
-      transition={{ duration: 0.5, delay: (index % 3) * 0.1, ease: "easeOut" }}
-      whileHover={{ y: -8 }}
-      className="group relative flex flex-col h-full rounded-2xl overflow-hidden bg-slate-900/40 backdrop-blur-xl border border-white/10 hover:border-cyan-500/40 transition-all duration-300 shadow-xl hover:shadow-2xl hover:shadow-cyan-500/10"
+      transition={{ duration: 0.45, delay: (index % 3) * 0.08, ease: "easeOut" }}
+      whileHover={{ y: -6 }}
+      className="group relative flex flex-col h-full rounded-2xl overflow-hidden bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-cyan-500/5"
     >
-      {/* Top ambient highlight on hover */}
-      <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
-
       {/* Product Image Area */}
       <div className="relative w-full h-52 overflow-hidden bg-slate-950 flex-shrink-0">
         {imageUrl ? (
           <img
             src={imageUrl}
             alt={title}
-            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+            className="w-full h-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
             loading="lazy"
           />
         ) : (
           <div
-            className={`absolute inset-0 bg-gradient-to-br ${imageGradient} transition-transform duration-700 ease-out group-hover:scale-105`}
+            className={`w-full h-full bg-gradient-to-br ${imageGradient}`}
           />
         )}
 
-        {/* High-tech engineering grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:1.25rem_1.25rem] opacity-30 mix-blend-overlay pointer-events-none" />
-
-        {/* Ambient bottom shadow gradient to seamlessly blend into card body */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-black/30 pointer-events-none" />
-
-        {/* Corner HUD Marks */}
-        <div className="absolute top-3 left-3 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/70 pointer-events-none group-hover:border-cyan-300 transition-colors" />
-        <div className="absolute bottom-3 right-3 w-2.5 h-2.5 border-b-2 border-r-2 border-cyan-400/70 pointer-events-none group-hover:border-cyan-300 transition-colors" />
-
         {/* Category Pill - Top Left */}
         <div className="absolute top-3.5 left-3.5 z-10">
-          <span className="inline-flex items-center px-2.5 py-1 rounded-full text-[11px] font-semibold tracking-wider uppercase bg-black/60 backdrop-blur-md border border-white/15 text-cyan-300 shadow-sm">
+          <span className="inline-flex items-center px-3 py-1 rounded-full text-xs font-semibold bg-slate-900/80 backdrop-blur-md border border-slate-700/80 text-cyan-300 shadow-sm">
             {category}
           </span>
         </div>
@@ -103,7 +89,7 @@ export default function ProjectCard({
         {/* Status Badge - Top Right */}
         <div className="absolute top-3.5 right-3.5 z-10">
           <span
-            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold tracking-wide border backdrop-blur-md shadow-sm transition-all duration-200 ${statusConfig.badge}`}
+            className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold border backdrop-blur-md shadow-sm ${statusConfig.badge}`}
           >
             <span
               className={`w-1.5 h-1.5 rounded-full ${statusConfig.dot} ${
@@ -125,20 +111,17 @@ export default function ProjectCard({
         </div>
 
         {/* Description */}
-        <p className="text-sm text-zinc-400 leading-relaxed flex-grow line-clamp-3">
+        <p className="text-sm text-slate-300 leading-relaxed flex-grow">
           {description}
         </p>
 
-        {/* Technology Tags */}
+        {/* Key Features / Technologies */}
         <div className="pt-2">
-          <div className="text-[11px] font-mono uppercase tracking-wider text-zinc-500 mb-2">
-            Technologies & Frameworks
-          </div>
           <div className="flex flex-wrap gap-1.5">
             {technologies.map((tech) => (
               <span
                 key={tech}
-                className="inline-flex items-center px-2.5 py-1 text-xs font-mono font-medium rounded-md bg-white/5 hover:bg-white/10 text-zinc-300 border border-white/10 group-hover:border-white/20 transition-colors"
+                className="inline-flex items-center px-2.5 py-1 text-xs font-medium rounded-lg bg-slate-800/90 text-slate-300 border border-slate-700/70"
               >
                 {tech}
               </span>
@@ -146,24 +129,12 @@ export default function ProjectCard({
           </div>
         </div>
 
-        {/* Card Footer / Specs Action */}
-        <div className="pt-3 border-t border-white/5 flex items-center justify-between text-xs font-medium text-zinc-400 group-hover:text-cyan-300 transition-colors">
-          <span className="flex items-center gap-1 font-mono">
-            <span>SPECIFICATIONS</span>
-          </span>
-          <svg
-            className="w-4 h-4 transform group-hover:translate-x-1.5 transition-transform duration-200"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-            />
-          </svg>
+        {/* Card Footer: Simple Action Link */}
+        <div className="pt-4 border-t border-slate-800/80 mt-auto flex items-center justify-between text-xs font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors">
+          <Link href="/contact" className="inline-flex items-center gap-1 hover:underline">
+            <span>Inquire About This Product</span>
+            <span className="transition-transform duration-200 group-hover:translate-x-1">→</span>
+          </Link>
         </div>
       </div>
     </motion.div>

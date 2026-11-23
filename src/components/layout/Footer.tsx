@@ -41,9 +41,8 @@ export function Footer() {
             </p>
 
             <p className="text-sm text-gray-400 leading-relaxed">
-              Pioneering sovereign deep-tech research and experimental development in natural sciences, robotics kinematics, 
-              defense systems, and artificial intelligence. Founded by former DRDO CAIR 
-              research leadership (IISc alumnus).
+              We engineer intelligent robotics, autonomous defense drones, and smart computer vision systems. 
+              Founded by former DRDO CAIR scientist Dr. Dadireddy Srinivasulu Reddy (IISc alumnus).
             </p>
 
             <div className="pt-1">

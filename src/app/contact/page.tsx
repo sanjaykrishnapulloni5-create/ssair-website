@@ -157,8 +157,8 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-blue-400">
-                    Electronic Mail
+                  <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
+                    Email Us Directly
                   </span>
                   <div className="mt-0.5">
                     <a
@@ -169,7 +169,7 @@ export default function ContactPage() {
                     </a>
                   </div>
                   <p className="text-xs text-zinc-400 mt-0.5">
-                    Direct founder &amp; R&amp;D laboratory desk
+                    We reply promptly to inquiries and project proposals.
                   </p>
                 </div>
               </div>
@@ -192,19 +192,19 @@ export default function ContactPage() {
                   </svg>
                 </div>
                 <div className="flex-1 min-w-0">
-                  <span className="text-[11px] font-bold uppercase tracking-wider text-emerald-400">
-                    Telephone Liaison
+                  <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
+                    Call Us
                   </span>
                   <div className="mt-0.5">
                     <a
                       href="tel:+919848126456"
-                      className="text-base font-semibold text-white hover:text-emerald-300 transition-colors"
+                      className="text-base font-semibold text-white hover:text-emerald-400 transition-colors"
                     >
                       +91 98481 26456
                     </a>
                   </div>
                   <p className="text-xs text-zinc-400 mt-0.5">
-                    Direct technical &amp; executive liaison
+                    Available during business hours (Mon – Sat)
                   </p>
                 </div>
               </div>

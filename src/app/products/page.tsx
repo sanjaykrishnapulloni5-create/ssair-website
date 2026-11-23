@@ -231,13 +231,13 @@ export default function ProductsPage() {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 backdrop-blur-md text-xs font-mono tracking-widest text-cyan-300 uppercase shadow-inner"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/80 border border-cyan-500/30 backdrop-blur-md text-xs font-medium tracking-wide text-cyan-300 shadow-sm"
           >
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
-            Strategic Systems • AI • Robotics
+            Robotics • Autonomous Drones • AI Software
           </motion.div>
 
-          {/* Hero Gradient Heading */}
+          {/* Hero Heading */}
           <motion.h1
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -245,7 +245,7 @@ export default function ProductsPage() {
             className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight"
           >
             <span className="bg-gradient-to-r from-white via-cyan-100 to-cyan-400 bg-clip-text text-transparent">
-              Products & Projects
+              Our Products &amp; Solutions
             </span>
           </motion.h1>
 
@@ -254,9 +254,9 @@ export default function ProductsPage() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.2 }}
-            className="text-base sm:text-xl text-zinc-400 max-w-2xl mx-auto leading-relaxed"
+            className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed"
           >
-            Engineered for high-consequence environments. Discover our combat-grade defence architectures, heavy industrial robotics, and neural fleet intelligence platforms.
+            Explore our range of intelligent robots, autonomous defense drones, and computer vision platforms built to empower modern defense and industry.
           </motion.p>
 
           {/* Quick Metrics Bar */}
@@ -267,19 +267,19 @@ export default function ProductsPage() {
             className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-3xl mx-auto"
           >
             {[
-              { label: "Hardware Deployments", val: "9+ Active" },
-              { label: "Mission Reliability", val: "99.98%" },
-              { label: "Edge Response", val: "<5 ms" },
-              { label: "Defense Standards", val: "MIL-STD Ready" },
+              { label: "Hardware & AI Systems", val: "9+ Solutions" },
+              { label: "R&D Experience", val: "15+ Years" },
+              { label: "Design & Engineering", val: "100% Indigenous" },
+              { label: "Two Synergistic Arms", val: "Sri Saraswathi & SSAIR" },
             ].map((metric, i) => (
               <div
                 key={i}
-                className="p-3.5 rounded-xl bg-white/[0.02] border border-white/5 backdrop-blur-sm"
+                className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 backdrop-blur-sm"
               >
-                <div className="text-xl sm:text-2xl font-bold font-mono text-cyan-300">
+                <div className="text-xl sm:text-2xl font-bold text-cyan-300">
                   {metric.val}
                 </div>
-                <div className="text-xs text-zinc-500 uppercase tracking-wider mt-0.5">
+                <div className="text-xs text-slate-400 mt-1">
                   {metric.label}
                 </div>
               </div>
