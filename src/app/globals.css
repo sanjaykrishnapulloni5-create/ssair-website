@@ -68,7 +68,9 @@ html.light .bg-black,
 html.light .bg-gray-950,
 html.light .bg-slate-950,
 html.light .bg-zinc-950,
-html.light .bg-neutral-950 {
+html.light .bg-neutral-950,
+html.light .bg-\[\#070b14\],
+html.light .bg-\[\#090d16\] {
   background-color: #ffffff !important;
 }
 
