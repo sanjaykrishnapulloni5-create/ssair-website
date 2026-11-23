@@ -308,21 +308,19 @@ export default function AboutPage() {
             <div className="relative z-10 flex flex-col lg:flex-row gap-8 lg:gap-12 items-start">
               {/* Left Column: Avatar & Quick Info */}
               <div className="flex flex-col items-center lg:items-start text-center lg:text-left w-full lg:w-72 shrink-0">
-                {/* Photo Placeholder (Gradient Avatar) */}
+                {/* Photo Placeholder replaced with Actual Founder Photo */}
                 <div className="relative mb-6">
-                  <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-gradient-to-tr from-cyan-600 via-blue-600 to-indigo-700 p-1 shadow-xl shadow-cyan-950/60 ring-2 ring-cyan-400/20">
-                    <div className="w-full h-full rounded-[14px] bg-zinc-950 flex flex-col items-center justify-center relative overflow-hidden group">
-                      <div className="absolute inset-0 bg-gradient-to-br from-cyan-500/20 to-indigo-500/10 opacity-70" />
-                      <span className="text-4xl sm:text-5xl font-black tracking-wider bg-gradient-to-tr from-cyan-300 via-blue-200 to-indigo-200 bg-clip-text text-transparent font-mono relative z-10">
-                        DSR
-                      </span>
-                      <span className="text-[10px] uppercase font-mono tracking-widest text-cyan-400/90 mt-1 relative z-10 font-medium">
-                        Scientist 'D'
-                      </span>
+                  <div className="w-36 h-36 sm:w-44 sm:h-44 rounded-2xl bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-700 p-1 shadow-2xl shadow-cyan-950/60 ring-2 ring-cyan-400/30">
+                    <div className="w-full h-full rounded-[14px] bg-zinc-950 relative overflow-hidden group">
+                      <img
+                        src="/images/founder.jpg"
+                        alt="Dr. Dadireddy Srinivasulu Reddy - Founder & Director"
+                        className="w-full h-full object-cover object-top transition-transform duration-500 group-hover:scale-105"
+                      />
                     </div>
                   </div>
                   {/* DRDO Best Team badge floating */}
-                  <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full shadow-lg border border-amber-300/40 flex items-center gap-1">
+                  <div className="absolute -bottom-2 -right-2 bg-gradient-to-r from-amber-500 to-amber-600 text-zinc-950 text-[10px] font-extrabold uppercase px-2.5 py-1 rounded-full shadow-lg border border-amber-300/40 flex items-center gap-1 z-10">
                     <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
                       <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                     </svg>
@@ -587,22 +585,22 @@ export default function AboutPage() {
             <div className="absolute left-4 sm:left-1/2 top-4 bottom-4 -translate-x-1/2 w-0.5 bg-gradient-to-b from-cyan-500 via-blue-500 to-indigo-600 hidden sm:block" />
 
             <div className="space-y-12">
-              {/* Milestone 1: 2022 */}
+              {/* Milestone 1: 2022 - Main Flagship Enterprise */}
               <div className="relative flex flex-col sm:flex-row items-start sm:items-center group">
                 <div className="w-full sm:w-1/2 sm:pr-10 text-left sm:text-right">
                   <div className="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold bg-blue-950/80 text-blue-300 border border-blue-800/60 mb-2">
-                    Established 2022
+                    Established 2022 • Main Company
                   </div>
                   <h3 className="text-xl font-bold text-white">
-                    Sri Saraswathi AI & Robotics
+                    Sri Saraswathi Artificial Intelligence and Robotics
                   </h3>
                   <p className="text-zinc-400 text-sm mt-2 leading-relaxed">
-                    Foundation of sister company{" "}
-                    <strong className="text-zinc-200">
+                    Incorporation of the flagship parent company{" "}
+                    <strong className="text-white">
                       Sri Saraswathi Artificial Intelligence and Robotics Pvt. Ltd.
                     </strong>{" "}
-                    (est. 2022), creating an exploratory foundation for applied AI algorithms,
-                    mechatronics testing, and computer vision research.
+                    (est. 2022), spearheading core research, large-scale industrial automation,
+                    and intelligent enterprise cybernetics across India.
                   </p>
                 </div>
 
@@ -613,23 +611,23 @@ export default function AboutPage() {
 
                 <div className="w-full sm:w-1/2 sm:pl-10 mt-4 sm:mt-0">
                   <div className="p-4 rounded-xl border border-zinc-800 bg-zinc-900/50 text-xs text-zinc-300 space-y-1">
-                    <div className="font-semibold text-cyan-300">Sister Company Synergy</div>
+                    <div className="font-semibold text-cyan-300">Flagship Parent Enterprise</div>
                     <div>
-                      Incubated multi-disciplinary research initiatives in machine perception and
-                      robotic mechanism kinematics.
+                      Pioneered applied AI architectures, mechatronics testing, and proprietary
+                      computational foundations that power the entire ecosystem.
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Milestone 2: 2026 */}
+              {/* Milestone 2: 2026 - Sister Company & Deep-Tech R&D Arm */}
               <div className="relative flex flex-col sm:flex-row items-start sm:items-center group">
                 <div className="w-full sm:w-1/2 sm:pr-10 text-left sm:text-right order-2 sm:order-1 mt-4 sm:mt-0">
                   <div className="p-4 rounded-xl border border-cyan-800/60 bg-cyan-950/20 text-xs text-zinc-300 space-y-1">
-                    <div className="font-semibold text-cyan-300">NIC 7210 Certification</div>
+                    <div className="font-semibold text-cyan-300">Sister Company & Dedicated R&D Wing</div>
                     <div>
-                      Dedicated research & experimental development on natural sciences and
-                      engineering, backed by defense-grade R&D rigor.
+                      Formed as the specialized sovereign defense and natural sciences research arm
+                      (NIC 7210) working in synergy with parent company Sri Saraswathi AI & Robotics.
                     </div>
                   </div>
                 </div>
@@ -641,18 +639,18 @@ export default function AboutPage() {
 
                 <div className="w-full sm:w-1/2 sm:pl-10 text-left order-1 sm:order-3">
                   <div className="inline-block px-3 py-1 rounded-full text-xs font-mono font-bold bg-cyan-950/80 text-cyan-300 border border-cyan-800/60 mb-2">
-                    June 17, 2026
+                    June 17, 2026 • Sister Company
                   </div>
                   <h3 className="text-xl font-bold text-white">
                     Incorporation of SSAIR
                   </h3>
                   <p className="text-zinc-400 text-sm mt-2 leading-relaxed">
-                    Formal incorporation of{" "}
-                    <strong className="text-zinc-200">
+                    Formal incorporation of sister enterprise{" "}
+                    <strong className="text-white">
                       Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR)
                     </strong>{" "}
                     in Bengaluru (CIN: U72100KA2026PTC222434) to advance sovereign defense
-                    robotics, missile technology architectures, and high-performance autonomous systems.
+                    robotics, parallel kinematics (five-bar mechanisms), and real-time AI vision.
                   </p>
                 </div>
               </div>
@@ -709,7 +707,7 @@ export default function AboutPage() {
                 </Link>
 
                 <a
-                  href="mailto:contact@ssair.in"
+                  href="mailto:srinivasulureddydadireddy@gmail.com"
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-zinc-700 bg-zinc-900/80 text-zinc-200 hover:text-white hover:bg-zinc-800/90 font-medium text-sm transition-all duration-200"
                 >
                   <svg
@@ -725,7 +723,27 @@ export default function AboutPage() {
                       d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
                     />
                   </svg>
-                  <span>contact@ssair.in</span>
+                  <span>srinivasulureddydadireddy@gmail.com</span>
+                </a>
+
+                <a
+                  href="tel:+919848126456"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-zinc-700 bg-zinc-900/80 text-zinc-200 hover:text-white hover:bg-zinc-800/90 font-medium text-sm transition-all duration-200"
+                >
+                  <svg
+                    className="w-4 h-4 text-emerald-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                    />
+                  </svg>
+                  <span>+91 98481 26456</span>
                 </a>
               </div>
 

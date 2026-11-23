@@ -36,9 +36,12 @@ export function Footer() {
             <p className="text-xs font-semibold uppercase tracking-wider text-cyan-400">
               Sri Srinivasa AI Robotics Pvt. Ltd.
             </p>
+            <p className="text-[11px] font-medium text-zinc-400 -mt-2">
+              A Sister Company of <strong className="text-zinc-200">Sri Saraswathi Artificial Intelligence and Robotics Pvt. Ltd.</strong>
+            </p>
 
             <p className="text-sm text-gray-400 leading-relaxed">
-              Pioneering deep-tech research and development in natural sciences, robotics, 
+              Pioneering sovereign deep-tech research and experimental development in natural sciences, robotics kinematics, 
               defense systems, and artificial intelligence. Founded by former DRDO CAIR 
               research leadership (IISc alumnus).
             </p>
@@ -205,10 +208,10 @@ export function Footer() {
                   />
                 </svg>
                 <a
-                  href="mailto:info@ssair.in"
-                  className="hover:text-cyan-400 transition-colors"
+                  href="mailto:srinivasulureddydadireddy@gmail.com"
+                  className="hover:text-cyan-400 transition-colors break-all"
                 >
-                  info@ssair.in
+                  srinivasulureddydadireddy@gmail.com
                 </a>
               </div>
 
@@ -229,16 +232,17 @@ export function Footer() {
                   />
                 </svg>
                 <a
-                  href="tel:+918000000000"
+                  href="tel:+919848126456"
                   className="hover:text-cyan-400 transition-colors"
                 >
-                  +91 80 0000 0000
+                  +91 98481 26456
                 </a>
               </div>
 
               {/* ROC & Incorporation Note */}
               <div className="pt-2 text-xs text-gray-500 border-t border-gray-900">
-                <p>ROC Bangalore • Inc. June 17, 2026</p>
+                <p>Main Enterprise: Sri Saraswathi AI & Robotics (Est. 2022)</p>
+                <p className="mt-0.5">Sister Enterprise: SSAIR • ROC Bangalore • Inc. June 17, 2026</p>
                 <p className="mt-0.5">NIC 7210: Natural Sciences & Engineering</p>
               </div>
             </div>

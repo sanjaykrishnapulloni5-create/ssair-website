@@ -53,7 +53,7 @@ export default function ContactPage() {
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full text-xs font-semibold tracking-wider uppercase bg-cyan-950/60 text-cyan-400 border border-cyan-500/30 mb-6 shadow-lg shadow-cyan-500/10 backdrop-blur-md">
             <span className="w-2 h-2 rounded-full bg-cyan-400 animate-ping" />
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 -ml-3" />
-            SRI SRINIVASA AI ROBOTICS (SSAIR)
+            SSAIR • SISTER COMPANY OF SRI SARASWATHI AI & ROBOTICS
           </div>
 
           <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white mb-6">
@@ -162,14 +162,14 @@ export default function ContactPage() {
                   </span>
                   <div className="mt-0.5">
                     <a
-                      href="mailto:info@ssair.in"
-                      className="text-base font-semibold text-white hover:text-cyan-400 transition-colors"
+                      href="mailto:srinivasulureddydadireddy@gmail.com"
+                      className="text-base font-semibold text-white hover:text-cyan-400 transition-colors break-all"
                     >
-                      info@ssair.in
+                      srinivasulureddydadireddy@gmail.com
                     </a>
                   </div>
                   <p className="text-xs text-zinc-400 mt-0.5">
-                    For general inquiries, tenders &amp; R&amp;D proposals
+                    Direct founder &amp; R&amp;D laboratory desk
                   </p>
                 </div>
               </div>
@@ -197,17 +197,14 @@ export default function ContactPage() {
                   </span>
                   <div className="mt-0.5">
                     <a
-                      href="tel:+918041234567"
+                      href="tel:+919848126456"
                       className="text-base font-semibold text-white hover:text-emerald-300 transition-colors"
                     >
-                      +91 (080) 4123-SSAIR
+                      +91 98481 26456
                     </a>
-                    <span className="ml-2 text-xs px-2 py-0.5 rounded bg-zinc-800 text-zinc-400 border border-zinc-700">
-                      +91 (placeholder)
-                    </span>
                   </div>
                   <p className="text-xs text-zinc-400 mt-0.5">
-                    Direct routing to administrative desk
+                    Direct technical &amp; executive liaison
                   </p>
                 </div>
               </div>

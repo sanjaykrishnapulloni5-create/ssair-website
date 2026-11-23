@@ -119,8 +119,8 @@ function WhyChooseUsSection() {
       title: "Sovereign Deep-Tech Enterprise",
       subtitle: "CIN: U72100KA2026PTC222434 | ROC Bangalore",
       description:
-        "Registered corporate R&D enterprise in natural sciences & engineering headquartered in Indiranagar, Bengaluru. Directed by Anusha Nagella (Whole-time Director) and backed by sister firm Sri Saraswathi AI and Robotics Pvt. Ltd. (est. 2022).",
-      tags: ["ROC Bangalore", "Indiranagar, Bengaluru", "Sister Co. Est. 2022", "Authorized ₹10 Lakhs"],
+        "Registered corporate R&D enterprise in natural sciences & engineering headquartered in Indiranagar, Bengaluru. Directed by Anusha Nagella (Whole-time Director) and operating as the dedicated deep-tech sister enterprise to main flagship company Sri Saraswathi Artificial Intelligence and Robotics Pvt. Ltd. (est. 2022).",
+      tags: ["Main Co: Sri Saraswathi AI", "Sister R&D Wing", "Indiranagar, Bengaluru", "Authorized ₹10 Lakhs"],
       icon: (
         <svg
           className="w-7 h-7 text-indigo-400"
@@ -277,7 +277,7 @@ function CTASection() {
 
           {/* Description */}
           <p className="text-base sm:text-lg text-zinc-300 leading-relaxed mb-8 sm:mb-10 max-w-2xl">
-            Partner with <strong className="text-white">Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR)</strong> to leverage 15+ years of DRDO CAIR defense science, five-bar parallel robotics kinematics, and real-time computer vision for your mission-critical initiatives.
+            Partner with <strong className="text-white">Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR)</strong> — dedicated deep-tech sister enterprise to <strong className="text-white">Sri Saraswathi Artificial Intelligence and Robotics Pvt. Ltd.</strong> — to leverage 15+ years of DRDO CAIR defense science, five-bar parallel robotics kinematics, and real-time computer vision for your mission-critical initiatives.
           </p>
 
           {/* Action Buttons */}

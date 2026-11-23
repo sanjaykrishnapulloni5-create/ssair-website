@@ -23,6 +23,7 @@ interface ProjectData {
   technologies: string[];
   status: "Deployed" | "In Development" | "Prototype";
   imageGradient: string;
+  imageUrl?: string;
 }
 
 const PROJECTS: ProjectData[] = [
@@ -37,6 +38,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["Edge AI", "ROS 2", "FLIR Thermal", "AES-256", "PX4 Autopilot"],
     status: "Deployed",
     imageGradient: "from-red-950/70 via-amber-950/50 to-slate-950",
+    imageUrl: "/images/products/aegis-uav.jpg",
   },
   {
     id: "vanguard-ugv",
@@ -48,6 +50,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["3D LiDAR SLAM", "NVIDIA Jetson AGX", "C++", "RTK-GPS", "CAN Bus"],
     status: "In Development",
     imageGradient: "from-amber-950/70 via-stone-900 to-slate-950",
+    imageUrl: "/images/products/vanguard-ugv.jpg",
   },
   {
     id: "sentinel-cuas",
@@ -59,6 +62,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["RF Spectrum AI", "SDR", "Phased Array", "FPGA", "CUDA"],
     status: "Prototype",
     imageGradient: "from-rose-950/70 via-red-900/40 to-slate-950",
+    imageUrl: "/images/products/sentinel-cuas.jpg",
   },
 
   // --- Industrial Robotics (3 Cards) ---
@@ -72,6 +76,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["Force/Torque Sensing", "EtherCAT", "Digital Twin", "Safety PLC", "Kinematics"],
     status: "Deployed",
     imageGradient: "from-cyan-950/70 via-teal-900/50 to-slate-950",
+    imageUrl: "/images/products/titanarm-cobot.jpg",
   },
   {
     id: "nexus-amr",
@@ -83,6 +88,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["Natural SLAM", "VDA 5050", "Fleet Optimization", "Ultra-Wideband", "Python"],
     status: "Deployed",
     imageGradient: "from-blue-950/70 via-indigo-900/50 to-slate-950",
+    imageUrl: "/images/products/nexus-amr.jpg",
   },
   {
     id: "visionsort-ai",
@@ -94,6 +100,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["High-Speed CV", "Delta Robot", "TensorRT", "GigE Vision", "OPC-UA"],
     status: "In Development",
     imageGradient: "from-sky-950/70 via-blue-900/40 to-slate-950",
+    imageUrl: "/images/products/visionsort-ai.jpg",
   },
 
   // --- Software & AI (3 Cards) ---
@@ -107,6 +114,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["Distributed Systems", "WebRTC", "Go", "GraphQL", "Kubernetes", "Rust"],
     status: "Deployed",
     imageGradient: "from-purple-950/70 via-indigo-900/50 to-slate-950",
+    imageUrl: "/images/products/neurofleet-os.jpg",
   },
   {
     id: "cybertwin-sim",
@@ -118,6 +126,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["Isaac Sim", "PyTorch", "Ray Tracing", "OpenUSD", "RLlib"],
     status: "In Development",
     imageGradient: "from-fuchsia-950/70 via-violet-900/40 to-slate-950",
+    imageUrl: "/images/products/cybertwin-sim.jpg",
   },
   {
     id: "visioncore-sdk",
@@ -129,6 +138,7 @@ const PROJECTS: ProjectData[] = [
     technologies: ["Quantized ONNX", "Zero-Copy Pipeline", "C++20", "OpenVINO", "NPU Accel"],
     status: "Prototype",
     imageGradient: "from-emerald-950/70 via-cyan-900/40 to-slate-950",
+    imageUrl: "/images/products/visioncore-sdk.jpg",
   },
 ];
 
@@ -366,6 +376,7 @@ export default function ProductsPage() {
                         technologies={project.technologies}
                         status={project.status}
                         imageGradient={project.imageGradient}
+                        imageUrl={project.imageUrl}
                         index={cardIdx}
                       />
                     ))}

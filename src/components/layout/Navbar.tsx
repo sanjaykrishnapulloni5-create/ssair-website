@@ -282,8 +282,8 @@ export function Navbar() {
                 <ThemeToggle showLabel />
               </div>
               <div className="flex items-center justify-between text-xs text-gray-400 font-mono">
-                <span>Sri Srinivasa AI Robotics</span>
-                <span className="text-cyan-400">Next-Gen Robotics</span>
+                <span>SSAIR (Sister Co.)</span>
+                <span className="text-cyan-400">Main: Sri Saraswathi AI</span>
               </div>
               <Link
                 href="/contact"

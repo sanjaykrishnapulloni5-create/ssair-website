@@ -12,6 +12,7 @@ export interface ProjectCardProps {
   technologies: string[];
   status: ProjectStatus;
   imageGradient?: string;
+  imageUrl?: string;
   index?: number;
 }
 
@@ -22,6 +23,7 @@ export default function ProjectCard({
   technologies,
   status,
   imageGradient = "from-cyan-950/60 via-blue-950/50 to-slate-950",
+  imageUrl,
   index = 0,
 }: ProjectCardProps) {
   // Status styling logic: green = Deployed, yellow = In Development, blue = Prototype
@@ -66,33 +68,30 @@ export default function ProjectCard({
       {/* Top ambient highlight on hover */}
       <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-20 pointer-events-none" />
 
-      {/* Gradient Image Placeholder Area */}
+      {/* Product Image Area */}
       <div className="relative w-full h-52 overflow-hidden bg-slate-950 flex-shrink-0">
-        {/* Dynamic gradient background */}
-        <div
-          className={`absolute inset-0 bg-gradient-to-br ${imageGradient} transition-transform duration-700 ease-out group-hover:scale-105`}
-        />
+        {imageUrl ? (
+          <img
+            src={imageUrl}
+            alt={title}
+            className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-108"
+            loading="lazy"
+          />
+        ) : (
+          <div
+            className={`absolute inset-0 bg-gradient-to-br ${imageGradient} transition-transform duration-700 ease-out group-hover:scale-105`}
+          />
+        )}
 
         {/* High-tech engineering grid pattern */}
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:1.25rem_1.25rem] opacity-40 mix-blend-overlay" />
-
-        {/* Radial highlight for lighting depth */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_35%,rgba(255,255,255,0.14),transparent_65%)]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.06)_1px,transparent_1px)] bg-[size:1.25rem_1.25rem] opacity-30 mix-blend-overlay pointer-events-none" />
 
         {/* Ambient bottom shadow gradient to seamlessly blend into card body */}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-950/40 to-black/30 pointer-events-none" />
 
         {/* Corner HUD Marks */}
-        <div className="absolute top-3 left-3 w-2.5 h-2.5 border-t-2 border-l-2 border-white/20 pointer-events-none group-hover:border-cyan-400/70 transition-colors" />
-        <div className="absolute bottom-3 right-3 w-2.5 h-2.5 border-b-2 border-r-2 border-white/20 pointer-events-none group-hover:border-cyan-400/70 transition-colors" />
-
-        {/* Centered abstract schematic watermark */}
-        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-          <div className="w-24 h-24 rounded-full border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-cyan-500/30 transition-all duration-500">
-            <div className="w-16 h-16 rounded-full border border-dashed border-white/15 animate-[spin_25s_linear_infinite]" />
-            <div className="absolute w-2 h-2 rounded-full bg-cyan-400/40 group-hover:bg-cyan-300 transition-colors" />
-          </div>
-        </div>
+        <div className="absolute top-3 left-3 w-2.5 h-2.5 border-t-2 border-l-2 border-cyan-400/70 pointer-events-none group-hover:border-cyan-300 transition-colors" />
+        <div className="absolute bottom-3 right-3 w-2.5 h-2.5 border-b-2 border-r-2 border-cyan-400/70 pointer-events-none group-hover:border-cyan-300 transition-colors" />
 
         {/* Category Pill - Top Left */}
         <div className="absolute top-3.5 left-3.5 z-10">
