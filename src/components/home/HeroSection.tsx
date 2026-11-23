@@ -1,254 +1,162 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import Link from "next/link";
-import { motion, AnimatePresence } from "framer-motion";
-
-interface ShowcaseProduct {
-  id: string;
-  name: string;
-  tagline: string;
-  category: string;
-  status: string;
-  imageUrl: string;
-  metricLabel: string;
-  metricValue: string;
-}
-
-const SHOWCASE_PRODUCTS: ShowcaseProduct[] = [
-  {
-    id: "aegis-uav",
-    name: "Aegis-UAV Tactical Drone",
-    tagline: "Autonomous surveillance with thermal tracking",
-    category: "Defense Drones",
-    status: "Operational",
-    imageUrl: "/images/products/aegis-uav.jpg",
-    metricLabel: "Operational Range",
-    metricValue: "45+ km",
-  },
-  {
-    id: "titanarm-cobot",
-    name: "TitanArm 6-Axis Cobot",
-    tagline: "Sub-millimeter precision manufacturing arm",
-    category: "Industrial Robotics",
-    status: "Active",
-    imageUrl: "/images/products/titanarm-cobot.jpg",
-    metricLabel: "Payload Capacity",
-    metricValue: "16 kg",
-  },
-  {
-    id: "nexus-amr",
-    name: "Nexus-AMR Heavy Tugger",
-    tagline: "Trackless autonomous warehouse navigation",
-    category: "Autonomous Ground",
-    status: "Active",
-    imageUrl: "/images/products/nexus-amr.jpg",
-    metricLabel: "Towing Capacity",
-    metricValue: "1,500 kg",
-  },
-];
+import { motion, type Variants } from "framer-motion";
+import Scene3D from "@/components/home/Scene3D";
 
 export function HeroSection() {
-  const [activeTab, setActiveTab] = useState(0);
-  const currentProduct = SHOWCASE_PRODUCTS[activeTab];
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.12,
+        delayChildren: 0.05,
+      },
+    },
+  };
+
+  const itemFadeUp: Variants = {
+    hidden: { opacity: 0, y: 20 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: {
+        duration: 0.6,
+        ease: [0.22, 1, 0.36, 1],
+      },
+    },
+  };
 
   return (
-    <section className="relative min-h-[92vh] w-full flex items-center justify-center overflow-hidden bg-[#070b14] text-white pt-24 pb-16 px-4 sm:px-6 lg:px-8 selection:bg-cyan-500 selection:text-black">
-      {/* Dynamic Background Mesh Gradients */}
-      <div className="absolute top-0 left-1/4 w-[500px] h-[500px] bg-gradient-to-br from-blue-600/15 via-cyan-500/10 to-transparent blur-[140px] pointer-events-none -z-10" />
-      <div className="absolute bottom-0 right-1/4 w-[450px] h-[450px] bg-gradient-to-tr from-indigo-600/15 via-purple-600/10 to-transparent blur-[140px] pointer-events-none -z-10" />
-      
-      {/* Subtle modern dot matrix pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none -z-10"
-        style={{
-          backgroundImage: "radial-gradient(#ffffff 1px, transparent 1px)",
-          backgroundSize: "24px 24px",
-        }}
-      />
+    <section className="relative min-h-[92vh] w-full flex items-center justify-center overflow-hidden bg-slate-950 text-white selection:bg-cyan-500/30 selection:text-cyan-200">
+      {/* 1. Base Subtle Ambient Lighting */}
+      <div className="hero-dark-overlay absolute inset-0 bg-gradient-to-b from-slate-950 via-slate-950/80 to-slate-950 pointer-events-none z-[1]" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none z-[1]" />
+      <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[250px] bg-blue-600/10 blur-[120px] rounded-full pointer-events-none z-[1]" />
 
-      <div className="relative max-w-7xl mx-auto w-full">
-        {/* Main Split Grid Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column (7 cols): Bold Headline, Description & CTAs */}
-          <div className="lg:col-span-7 flex flex-col items-start text-left space-y-6">
-            
-            {/* Sister Company Corporate Pill */}
-            <motion.div
-              initial={{ opacity: 0, y: -15 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900/90 border border-cyan-500/30 shadow-md backdrop-blur-md"
-            >
+      {/* 2. Responsive 3D Scene */}
+      <div className="absolute inset-0 z-0 pointer-events-auto overflow-hidden">
+        <Scene3D />
+      </div>
+
+      {/* 3. Main Content: Clear, Elegant, Easy to Understand */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 flex flex-col items-center text-center">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="flex flex-col items-center"
+        >
+          {/* Simple, Clear Relationship Badge */}
+          <motion.div variants={itemFadeUp} className="mb-6">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-slate-900/80 border border-cyan-500/30 backdrop-blur-md shadow-md">
               <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
               <span className="text-xs sm:text-sm font-medium tracking-wide text-cyan-300">
-                Sri Srinivasa AI Robotics • Sister Company to Sri Saraswathi AI &amp; Robotics
+                Sri Srinivasa AI Robotics • Sister Company of Sri Saraswathi AI &amp; Robotics
               </span>
-            </motion.div>
-
-            {/* Main Punchy Headline */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-              className="text-4xl sm:text-5xl lg:text-6xl xl:text-7xl font-extrabold tracking-tight leading-[1.1] text-white"
-            >
-              Autonomous Robotics &amp;{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent">
-                Artificial Intelligence
-              </span>
-            </motion.h1>
-
-            {/* Clear, Everyday Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-2xl leading-relaxed font-normal"
-            >
-              We engineer intelligent autonomous systems, defense drones, and computer vision technologies built for real-world impact. Founded by former DRDO CAIR scientist Dr. Dadireddy Srinivasulu Reddy (IISc alumnus).
-            </motion.p>
-
-            {/* Primary Action Buttons (NO phone or email clutter) */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.3 }}
-              className="flex flex-wrap items-center gap-4 pt-2"
-            >
-              <Link
-                href="/products"
-                className="px-7 py-3.5 rounded-xl font-semibold text-white text-base bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-lg shadow-cyan-500/25 transition-all duration-200 active:scale-95 flex items-center gap-2"
-              >
-                <span>Explore Products</span>
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
-                </svg>
-              </Link>
-
-              <Link
-                href="/about"
-                className="px-7 py-3.5 rounded-xl font-semibold text-slate-200 hover:text-white text-base border border-slate-700/80 hover:border-cyan-400/60 bg-slate-900/60 hover:bg-slate-800/80 backdrop-blur-md transition-all duration-200 active:scale-95 flex items-center gap-2"
-              >
-                <span>About Our Heritage</span>
-              </Link>
-            </motion.div>
-
-            {/* Clean Trust Pillars */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-              className="pt-6 grid grid-cols-2 sm:grid-cols-4 gap-4 w-full border-t border-slate-800/80 text-left"
-            >
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-cyan-400 block">15+ Yrs</span>
-                <span className="text-xs text-slate-400 mt-0.5 block">DRDO Defense R&amp;D</span>
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-blue-400 block">100%</span>
-                <span className="text-xs text-slate-400 mt-0.5 block">Indigenous Innovation</span>
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-teal-300 block">IISc &amp; CAIR</span>
-                <span className="text-xs text-slate-400 mt-0.5 block">Scientist Leadership</span>
-              </div>
-              <div>
-                <span className="text-xl sm:text-2xl font-bold text-indigo-300 block">2 Arms</span>
-                <span className="text-xs text-slate-400 mt-0.5 block">Sri Saraswathi &amp; SSAIR</span>
-              </div>
-            </motion.div>
-          </div>
-
-          {/* Right Column (5 cols): Interactive Modern System Showcase */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-            className="lg:col-span-5 w-full"
-          >
-            <div className="relative rounded-3xl p-6 bg-slate-900/90 border border-slate-800 shadow-2xl backdrop-blur-xl overflow-hidden group">
-              {/* Top Selector Tabs */}
-              <div className="flex items-center gap-1.5 p-1 rounded-xl bg-slate-950/80 border border-slate-800 mb-5">
-                {SHOWCASE_PRODUCTS.map((prod, idx) => (
-                  <button
-                    key={prod.id}
-                    onClick={() => setActiveTab(idx)}
-                    className={`flex-1 py-1.5 px-2 rounded-lg text-xs font-semibold transition-all duration-200 cursor-pointer ${
-                      activeTab === idx
-                        ? "bg-gradient-to-r from-blue-600 to-cyan-500 text-white shadow-md"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/50"
-                    }`}
-                  >
-                    {prod.name.split(" ")[0]}
-                  </button>
-                ))}
-              </div>
-
-              {/* Product Visual Container */}
-              <div className="relative h-64 sm:h-72 rounded-2xl overflow-hidden bg-slate-950 border border-slate-800/80 mb-5">
-                <AnimatePresence mode="wait">
-                  <motion.img
-                    key={currentProduct.id}
-                    src={currentProduct.imageUrl}
-                    alt={currentProduct.name}
-                    initial={{ opacity: 0, scale: 1.05 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    exit={{ opacity: 0 }}
-                    transition={{ duration: 0.4 }}
-                    className="w-full h-full object-cover"
-                  />
-                </AnimatePresence>
-
-                {/* Status Overlay */}
-                <div className="absolute top-3 left-3 flex items-center gap-2 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-700/80 backdrop-blur-md">
-                  <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                  <span className="text-[11px] font-semibold text-emerald-300">
-                    {currentProduct.status}
-                  </span>
-                </div>
-
-                <div className="absolute top-3 right-3 px-3 py-1 rounded-full bg-slate-950/80 border border-slate-700/80 backdrop-blur-md">
-                  <span className="text-[11px] font-medium text-cyan-300">
-                    {currentProduct.category}
-                  </span>
-                </div>
-              </div>
-
-              {/* Product Information Card */}
-              <div className="space-y-3">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <h3 className="text-xl font-bold text-white tracking-tight">
-                      {currentProduct.name}
-                    </h3>
-                    <p className="text-xs text-slate-300 mt-0.5">
-                      {currentProduct.tagline}
-                    </p>
-                  </div>
-                  <div className="text-right">
-                    <span className="text-xs text-slate-400 block">{currentProduct.metricLabel}</span>
-                    <span className="text-base font-bold text-cyan-400">{currentProduct.metricValue}</span>
-                  </div>
-                </div>
-
-                {/* Direct Link to Products */}
-                <div className="pt-3 border-t border-slate-800 flex items-center justify-between text-xs">
-                  <span className="text-slate-400">Autonomous Hardware</span>
-                  <Link
-                    href={`/products`}
-                    className="inline-flex items-center gap-1 font-semibold text-cyan-400 hover:text-cyan-300 transition-colors"
-                  >
-                    <span>View Specifications</span>
-                    <span>→</span>
-                  </Link>
-                </div>
-              </div>
             </div>
           </motion.div>
 
-        </div>
+          {/* Clean, Understandable Heading */}
+          <motion.h1
+            variants={itemFadeUp}
+            className="text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight leading-[1.15] text-white max-w-4xl mb-6"
+          >
+            Intelligent Robotics &amp; AI,{" "}
+            <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent">
+              Built for the Real World.
+            </span>
+          </motion.h1>
+
+          {/* Simple, Everyday English Description */}
+          <motion.p
+            variants={itemFadeUp}
+            className="text-base sm:text-lg lg:text-xl text-slate-300 max-w-3xl leading-relaxed font-normal mb-8"
+          >
+            We design and build autonomous robots, smart drones, and computer vision systems for defense and industries. 
+            Founded by former DRDO CAIR scientist Dr. Dadireddy Srinivasulu Reddy (IISc alumnus).
+          </motion.p>
+
+          {/* Quick Contact Buttons (Phone & Email) */}
+          <motion.div
+            variants={itemFadeUp}
+            className="flex flex-wrap items-center justify-center gap-3 text-xs sm:text-sm text-slate-300 mb-9"
+          >
+            <a
+              href="tel:+919848126456"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-emerald-500/60 hover:text-emerald-300 transition-all shadow-sm"
+            >
+              <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+              </svg>
+              <span>+91 98481 26456</span>
+            </a>
+
+            <a
+              href="mailto:srinivasulureddydadireddy@gmail.com"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-900/90 border border-slate-700/80 hover:border-cyan-500/60 hover:text-cyan-300 transition-all shadow-sm"
+            >
+              <svg className="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+              </svg>
+              <span>srinivasulureddydadireddy@gmail.com</span>
+            </a>
+          </motion.div>
+
+          {/* Primary Action Buttons */}
+          <motion.div
+            variants={itemFadeUp}
+            className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-5 w-full sm:w-auto mb-12"
+          >
+            <Link
+              href="/products"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-white text-base bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-lg shadow-cyan-500/25 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
+            >
+              <span>Explore Our Products</span>
+              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+              </svg>
+            </Link>
+
+            <Link
+              href="/contact"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-xl font-semibold text-slate-200 hover:text-white text-base border border-slate-700 hover:border-cyan-400 bg-slate-900/70 hover:bg-slate-800/80 backdrop-blur-md transition-all duration-200 active:scale-95 flex items-center justify-center gap-2"
+            >
+              <span>Contact Our Team</span>
+            </Link>
+          </motion.div>
+
+          {/* 4 Simple, High-Trust Pillars Everyone Understands */}
+          <motion.div
+            variants={itemFadeUp}
+            className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 w-full max-w-4xl text-left"
+          >
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
+              <span className="text-xl sm:text-2xl font-bold text-cyan-400 block">15+ Years</span>
+              <span className="text-xs text-slate-400 mt-1 block">Defense &amp; DRDO Heritage</span>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
+              <span className="text-xl sm:text-2xl font-bold text-blue-400 block">100% Indigenous</span>
+              <span className="text-xs text-slate-400 mt-1 block">Designed &amp; Made in India</span>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
+              <span className="text-xl sm:text-2xl font-bold text-cyan-300 block">IISc &amp; CAIR</span>
+              <span className="text-xs text-slate-400 mt-1 block">Top Scientist Leadership</span>
+            </div>
+            <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 backdrop-blur-md">
+              <span className="text-xl sm:text-2xl font-bold text-teal-300 block">2 Companies</span>
+              <span className="text-xs text-slate-400 mt-1 block">Sri Saraswathi AI &amp; SSAIR</span>
+            </div>
+          </motion.div>
+        </motion.div>
+      </div>
+
+      {/* Subtle Scroll Cue */}
+      <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-1.5 pointer-events-none opacity-40 z-[2]">
+        <div className="w-1 h-3 rounded-full bg-cyan-400 animate-bounce" />
+        <span className="text-[10px] tracking-widest uppercase text-slate-400">Scroll Down</span>
       </div>
     </section>
   );

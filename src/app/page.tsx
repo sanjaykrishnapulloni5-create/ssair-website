@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import HeroSection from "@/components/home/HeroSection";
+import StatsCounter from "@/components/home/StatsCounter";
+import FeaturedServices from "@/components/home/FeaturedServices";
 
 export const metadata: Metadata = {
-  title: "Sri Srinivasa AI Robotics (SSAIR) | Autonomous Systems & AI",
+  title: "Sri Srinivasa AI Robotics (SSAIR) | Intelligent Robotics & AI Solutions",
   description:
-    "Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR) is a premier Indian deep-tech enterprise pioneering autonomous robotics, defense systems, and computer vision. Sister company of Sri Saraswathi AI & Robotics.",
+    "Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR) is a premier Indian technology company engineering intelligent robotics, defense drones, and computer vision systems. Sister company of Sri Saraswathi AI & Robotics.",
   keywords: [
     "Sri Srinivasa AI Robotics",
     "SSAIR",
@@ -14,149 +16,195 @@ export const metadata: Metadata = {
     "DRDO CAIR",
     "IISc Bangalore",
     "Robotics India",
-    "Autonomous Drones",
+    "Defense Drones",
+    "Autonomous Systems",
     "Industrial Robotics",
+    "Bengaluru Robotics",
   ],
+  openGraph: {
+    title: "Sri Srinivasa AI Robotics (SSAIR) | Intelligent Robotics & AI",
+    description:
+      "Intelligent robotics, autonomous systems, and computer vision founded by former DRDO Scientist 'D' Dr. Dadireddy Srinivasulu Reddy (IISc alumnus).",
+    type: "website",
+  },
 };
 
 /**
- * 1. Innovation Bento Grid Section
- * Modern Apple / Linear style asymmetric layout showcasing core technology pillars.
+ * Why Choose Us Section
+ * Simple, human-friendly cards explaining SSAIR's strengths in plain English.
  */
-function InnovationBentoSection() {
+function WhyChooseUsSection() {
+  const cards = [
+    {
+      id: "drdo-heritage",
+      badge: "Defense Heritage",
+      title: "15+ Years Defense Engineering",
+      subtitle: "Led by Ex-DRDO Scientist 'D'",
+      description:
+        "Founded by Dr. Dadireddy Srinivasulu Reddy, former Scientist 'D' at CAIR DRDO and recipient of the DRDO Best Team Award. We bring over 15 years of defense-grade engineering to every autonomous system we create.",
+      highlights: ["Ex-Scientist 'D' CAIR DRDO", "DRDO Best Team Awardee", "Missile & Defense Guidance"],
+      icon: (
+        <svg
+          className="w-6 h-6 text-cyan-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9 12.75L11.25 15 15 9.75m-3-7.036A11.959 11.959 0 013.598 6 11.99 11.99 0 003 9.749c0 5.592 3.824 10.29 9 11.623 5.176-1.332 9-6.03 9-11.622 0-1.31-.21-2.571-.598-3.751h-.152c-3.196 0-6.1-1.248-8.25-3.285z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "iisc-foundation",
+      badge: "Academic Rigor",
+      title: "IISc Bangalore Research Foundation",
+      subtitle: "Top-Tier Scientific Excellence",
+      description:
+        "Trained at the Indian Institute of Science (IISc), Bangalore with a Master of Engineering in Computer Science & Automation. We combine deep academic research with practical, real-world execution.",
+      highlights: ["IISc Bangalore (M.E. CSA)", "SVU First Class Distinction", "Deep Research Rigor"],
+      icon: (
+        <svg
+          className="w-6 h-6 text-blue-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M4.26 10.147a60.438 60.438 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-15.482 0a50.636 50.636 0 00-2.658-.813A59.906 59.906 0 0112 3.493a59.903 59.903 0 0110.399 5.84c-.896.248-1.783.52-2.658.814m-15.482 0A50.717 50.717 0 0112 13.489a50.702 50.702 0 017.74-3.342M6.75 15a.75.75 0 100-1.5.75.75 0 000 1.5zm0 0v-3.675A55.378 55.378 0 0112 8.443m-7.007 11.55A5.981 5.981 0 006.75 15.75v-1.5"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "robotics-vision",
+      badge: "Intelligent Tech",
+      title: "Smart Robotics & AI Computer Vision",
+      subtitle: "Hardware & Software Built in India",
+      description:
+        "Proprietary parallel robotics kinematics and real-time computer vision algorithms. Our robots can see, analyze, and act precisely in high-speed manufacturing lines and security environments.",
+      highlights: ["Parallel Robotic Arms", "Real-Time AI Camera Vision", "High-Precision Motion"],
+      icon: (
+        <svg
+          className="w-6 h-6 text-teal-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M9 3v2m6-2v2M9 19v2m6-2v2M3 9h2m-2 6h2m16-6h2m-2 6h2M7 19h10a2 2 0 002-2V7a2 2 0 00-2-2H7a2 2 0 00-2 2v10a2 2 0 002 2zM9 9h6v6H9V9z"
+          />
+        </svg>
+      ),
+    },
+    {
+      id: "corporate-synergy",
+      badge: "Two Strong Companies",
+      title: "Backed by Sri Saraswathi AI & SSAIR",
+      subtitle: "Complete Hardware & AI Synergy",
+      description:
+        "Sri Srinivasa AI Robotics operates in close synergy with its parent company, Sri Saraswathi Artificial Intelligence & Robotics Pvt. Ltd. (est. 2022), providing complete end-to-end AI and robotics systems.",
+      highlights: ["Main Co: Sri Saraswathi AI (2022)", "Sister Arm: SSAIR (2026)", "Bengaluru Tech Hub"],
+      icon: (
+        <svg
+          className="w-6 h-6 text-indigo-500"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          strokeWidth={2}
+          aria-hidden="true"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            d="M3.75 21h16.5M4.5 3h15M5.25 3v18m13.5-18v18M9 6.75h1.5m-1.5 3h1.5m-1.5 3h1.5m3-6H15m-1.5 3H15m-1.5 3H15M9 21v-3.375c0-.621.504-1.125 1.125-1.125h3.75c.621 0 1.125.504 1.125 1.125V21"
+          />
+        </svg>
+      ),
+    },
+  ];
+
   return (
-    <section className="relative w-full py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#090d16] text-white border-t border-slate-800/80">
-      <div className="max-w-7xl mx-auto">
+    <section
+      id="why-choose-us"
+      className="relative w-full py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-950 text-white overflow-hidden border-t border-slate-800/80"
+    >
+      <div className="relative max-w-7xl mx-auto">
         {/* Section Header */}
-        <div className="max-w-3xl mb-14 text-left">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider mb-3">
-            Core Technology Pillars
+        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-cyan-400 text-xs sm:text-sm font-semibold tracking-wide mb-4">
+            <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 animate-pulse" />
+            Why Choose Us
           </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white">
-            Engineered for High-Consequence Missions
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
+            Why Partner With{" "}
+            <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
+              Sri Srinivasa AI Robotics
+            </span>
           </h2>
-          <p className="mt-3 text-base sm:text-lg text-slate-300">
-            From autonomous defense drones to high-precision industrial robotics, we build systems that perform flawlessly in the most demanding environments.
+          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed">
+            We deliver trusted, reliable, and intelligent robotics built with 15+ years of defense science pedigree and top-tier academic research.
           </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* Card 1: Autonomous Defense Drones (Span 2) */}
-          <div className="lg:col-span-2 group relative rounded-3xl overflow-hidden bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col md:flex-row justify-between">
-            <div className="p-8 sm:p-10 flex flex-col justify-between max-w-md z-10">
+        {/* 4 Clean Cards Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 lg:gap-8">
+          {cards.map((card) => (
+            <div
+              key={card.id}
+              className="group rounded-2xl bg-slate-900/80 border border-slate-800 hover:border-cyan-500/50 p-6 sm:p-8 transition-all duration-300 hover:shadow-xl hover:shadow-cyan-500/5 flex flex-col justify-between"
+            >
               <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
-                  Defense Autonomy
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mt-2 mb-3">
-                  Autonomous Tactical Drones
+                {/* Card Header with Icon and Badge */}
+                <div className="flex items-center justify-between mb-5">
+                  <div className="p-3 rounded-xl bg-slate-800 border border-slate-700 text-cyan-400 group-hover:border-cyan-500/40 transition-colors">
+                    {card.icon}
+                  </div>
+                  <span className="text-xs font-semibold text-cyan-300 bg-cyan-950/70 border border-cyan-800/60 px-3 py-1 rounded-full">
+                    {card.badge}
+                  </span>
+                </div>
+
+                {/* Card Title & Subtitle */}
+                <h3 className="text-xl sm:text-2xl font-bold text-white group-hover:text-cyan-300 transition-colors">
+                  {card.title}
                 </h3>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
-                  Long-endurance aerial reconnaissance engineered for GPS-denied zones, equipped with real-time thermal scanning and AI target classification.
+                <p className="text-xs sm:text-sm font-medium text-cyan-400/90 mt-1 mb-3">
+                  {card.subtitle}
+                </p>
+
+                {/* Card Body */}
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed">
+                  {card.description}
                 </p>
               </div>
-              <div>
-                <Link
-                  href="/products#aegis-uav"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-cyan-400 group-hover:text-cyan-300 transition-colors"
-                >
-                  <span>Explore Aegis Drone System</span>
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
-                </Link>
+
+              {/* Highlights */}
+              <div className="mt-6 pt-5 border-t border-slate-800 flex flex-wrap gap-2">
+                {card.highlights.map((item) => (
+                  <span
+                    key={item}
+                    className="text-xs font-medium text-slate-300 bg-slate-800/80 border border-slate-700/60 px-3 py-1 rounded-lg"
+                  >
+                    ✓ {item}
+                  </span>
+                ))}
               </div>
             </div>
-
-            <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
-              <img
-                src="/images/products/aegis-uav.jpg"
-                alt="Aegis Tactical Drone"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-900 via-transparent to-transparent pointer-events-none" />
-            </div>
-          </div>
-
-          {/* Card 2: Industrial Robotics */}
-          <div className="group relative rounded-3xl overflow-hidden bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between">
-            <div className="p-7">
-              <span className="text-xs font-bold uppercase tracking-wider text-blue-400">
-                Manufacturing
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mt-2 mb-2">
-                6-Axis Collaborative Arms
-              </h3>
-              <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                Sub-millimeter precision robotics for automated welding, assembly lines, and human-robot shop floor collaboration.
-              </p>
-            </div>
-            <div className="relative h-48 overflow-hidden">
-              <img
-                src="/images/products/titanarm-cobot.jpg"
-                alt="TitanArm Cobot"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-          </div>
-
-          {/* Card 3: Autonomous Mobile Tuggers */}
-          <div className="group relative rounded-3xl overflow-hidden bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col justify-between">
-            <div className="p-7">
-              <span className="text-xs font-bold uppercase tracking-wider text-teal-400">
-                Intralogistics
-              </span>
-              <h3 className="text-xl sm:text-2xl font-bold text-white mt-2 mb-2">
-                Heavy-Payload AMRs
-              </h3>
-              <p className="text-sm text-slate-300 leading-relaxed mb-4">
-                Autonomous mobile robots moving up to 1,500 kg loads dynamically without physical magnetic floor tracks.
-              </p>
-            </div>
-            <div className="relative h-48 overflow-hidden">
-              <img
-                src="/images/products/nexus-amr.jpg"
-                alt="Nexus AMR"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-            </div>
-          </div>
-
-          {/* Card 4: AI Computer Vision & Inspection (Span 2) */}
-          <div className="lg:col-span-2 group relative rounded-3xl overflow-hidden bg-slate-900/90 border border-slate-800 hover:border-cyan-500/50 transition-all duration-300 flex flex-col md:flex-row justify-between">
-            <div className="p-8 sm:p-10 flex flex-col justify-between max-w-md z-10">
-              <div>
-                <span className="text-xs font-bold uppercase tracking-wider text-emerald-400">
-                  Real-Time AI Vision
-                </span>
-                <h3 className="text-2xl sm:text-3xl font-bold text-white mt-2 mb-3">
-                  High-Speed Visual Quality Inspection
-                </h3>
-                <p className="text-sm sm:text-base text-slate-300 leading-relaxed mb-6">
-                  Industrial camera arrays powered by custom neural networks, detecting microscopic defects at over 600 components per minute.
-                </p>
-              </div>
-              <div>
-                <Link
-                  href="/services#computer-vision"
-                  className="inline-flex items-center gap-2 text-sm font-semibold text-emerald-400 group-hover:text-emerald-300 transition-colors"
-                >
-                  <span>Learn About AI Vision Systems</span>
-                  <span className="transition-transform group-hover:translate-x-1">→</span>
-                </Link>
-              </div>
-            </div>
-
-            <div className="relative w-full md:w-1/2 h-64 md:h-auto overflow-hidden">
-              <img
-                src="/images/products/visionsort-ai.jpg"
-                alt="VisionSort AI"
-                className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t md:bg-gradient-to-r from-slate-900 via-transparent to-transparent pointer-events-none" />
-            </div>
-          </div>
-
+          ))}
         </div>
       </div>
     </section>
@@ -164,199 +212,72 @@ function InnovationBentoSection() {
 }
 
 /**
- * 2. Two-Company Strategic Synergy Section
- * Highlights the clear relationship between the Main Company and the Sister R&D Arm.
+ * Call to Action Section
+ * Clean, inviting, and direct communication.
  */
-function CorporateSynergySection() {
+function CTASection() {
   return (
-    <section className="relative w-full py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#070b14] text-white border-t border-slate-800/80">
-      <div className="max-w-7xl mx-auto">
-        <div className="rounded-3xl p-8 sm:p-12 lg:p-16 bg-gradient-to-br from-slate-900 via-slate-900/90 to-slate-950 border border-slate-800 shadow-2xl relative overflow-hidden">
-          {/* Subtle glow */}
-          <div className="absolute top-0 right-0 w-96 h-96 bg-cyan-500/10 blur-[130px] rounded-full pointer-events-none" />
-
-          <div className="max-w-3xl mb-12">
-            <span className="text-xs font-bold uppercase tracking-wider text-cyan-400">
-              Corporate Hierarchy &amp; Synergy
-            </span>
-            <h2 className="text-3xl sm:text-4xl font-extrabold text-white mt-2 mb-4">
-              Two Companies, One Unified Mission
-            </h2>
-            <p className="text-slate-300 text-base sm:text-lg leading-relaxed">
-              We operate as a dual-entity ecosystem combining foundational artificial intelligence research with advanced hardware manufacturing and defense robotics.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch">
-            {/* Main Company Card */}
-            <div className="p-8 rounded-2xl bg-slate-950/80 border border-slate-800 flex flex-col justify-between">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-950/80 border border-blue-700/60 text-blue-300 text-xs font-semibold mb-4">
-                  ★ Main / Flagship Company (Est. 2022)
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  Sri Saraswathi Artificial Intelligence &amp; Robotics Pvt. Ltd.
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                  Our parent enterprise leads core software innovation, machine learning models, cloud control software, and enterprise AI architectures.
-                </p>
-              </div>
-              <ul className="space-y-2 text-xs text-slate-400 border-t border-slate-800 pt-4">
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">✓</span> Enterprise Machine Learning &amp; AI
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">✓</span> Fleet Management Operating Systems
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">✓</span> Cloud Robotics Analytics &amp; IoT
-                </li>
-              </ul>
-            </div>
-
-            {/* Sister Company Card */}
-            <div className="p-8 rounded-2xl bg-slate-950/80 border border-cyan-500/30 flex flex-col justify-between shadow-lg shadow-cyan-950/30">
-              <div>
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-700/60 text-cyan-300 text-xs font-semibold mb-4">
-                  🚀 Dedicated Sister Company (Est. 2026)
-                </div>
-                <h3 className="text-2xl font-bold text-white mb-2">
-                  Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR)
-                </h3>
-                <p className="text-sm text-slate-300 leading-relaxed mb-6">
-                  Our advanced R&amp;D engineering wing dedicated to sovereign defense hardware, autonomous drones, 6-axis robotic arms, and military-grade sensor fusion.
-                </p>
-              </div>
-              <ul className="space-y-2 text-xs text-slate-400 border-t border-slate-800 pt-4">
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">✓</span> Autonomous Defense UAVs &amp; Ground Vehicles
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">✓</span> Collaborative Industrial Manipulators
-                </li>
-                <li className="flex items-center gap-2">
-                  <span className="text-cyan-400">✓</span> Sovereign Indian Defense Technologies
-                </li>
-              </ul>
-            </div>
-          </div>
+    <section
+      id="cta"
+      className="relative w-full py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-slate-950 overflow-hidden"
+    >
+      <div className="relative max-w-5xl mx-auto rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-8 sm:p-12 lg:p-16 shadow-2xl text-center flex flex-col items-center">
+        {/* Eyebrow Pill */}
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-cyan-500/30 bg-cyan-950/50 text-cyan-300 text-xs sm:text-sm font-semibold tracking-wide mb-6">
+          <span className="w-2 h-2 rounded-full bg-cyan-400 animate-pulse" />
+          START A CONVERSATION
         </div>
-      </div>
-    </section>
-  );
-}
 
-/**
- * 3. Founder Spotlight (Editorial Magazine Layout)
- */
-function FounderSpotlightSection() {
-  return (
-    <section className="relative w-full py-20 sm:py-28 px-4 sm:px-6 lg:px-8 bg-[#090d16] text-white border-t border-slate-800/80">
-      <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-          
-          {/* Left Column (5 cols): Founder Portrait Photo */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative">
-              <div className="w-72 sm:w-80 h-96 rounded-3xl p-1 bg-gradient-to-tr from-cyan-500 via-blue-600 to-indigo-700 shadow-2xl shadow-cyan-950/50">
-                <div className="w-full h-full rounded-[22px] overflow-hidden bg-slate-950 relative">
-                  <img
-                    src="/images/founder.jpg"
-                    alt="Dr. Dadireddy Srinivasulu Reddy"
-                    className="w-full h-full object-cover object-top"
-                  />
-                </div>
-              </div>
-
-              {/* Award Badge Floating */}
-              <div className="absolute -bottom-4 -right-4 px-4 py-2 rounded-2xl bg-gradient-to-r from-amber-500 to-amber-600 text-slate-950 font-bold text-xs uppercase shadow-xl flex items-center gap-2 border border-amber-300/40">
-                <span>★</span>
-                <span>DRDO Best Team Awardee</span>
-              </div>
-            </div>
-          </div>
-
-          {/* Right Column (7 cols): Founder Pedigree & Mission */}
-          <div className="lg:col-span-7 space-y-6 text-left">
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 text-xs font-semibold uppercase tracking-wider">
-              Scientific Leadership
-            </div>
-
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-              Dr. Dadireddy Srinivasulu Reddy
-            </h2>
-
-            <p className="text-lg font-medium text-cyan-300">
-              Founder &amp; Research Director • Ex-Scientist &apos;D&apos; CAIR (DRDO), IISc Alumnus
-            </p>
-
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
-              With more than 15 years of dedicated scientific research at the Centre for Artificial Intelligence and Robotics (CAIR, DRDO) and an M.E. in Computer Science &amp; Automation from the Indian Institute of Science (IISc), Dr. Dadireddy Srinivasulu Reddy leads SSAIR&apos;s mission to engineer sovereign, high-consequence robotics and artificial intelligence solutions.
-            </p>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-4 border-t border-slate-800 text-xs">
-              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span className="text-slate-400 block mb-1">Defense Service</span>
-                <span className="text-white font-semibold text-sm">15+ Years CAIR DRDO</span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span className="text-slate-400 block mb-1">Academic Rigor</span>
-                <span className="text-white font-semibold text-sm">M.E. IISc Bangalore</span>
-              </div>
-              <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
-                <span className="text-slate-400 block mb-1">National Recognition</span>
-                <span className="text-amber-400 font-semibold text-sm">DRDO Best Team Award</span>
-              </div>
-            </div>
-
-            <div className="pt-2">
-              <Link
-                href="/about#founder"
-                className="inline-flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white bg-slate-900 border border-slate-700 hover:border-cyan-400 text-sm transition-all"
-              >
-                <span>Read Full Biography &amp; Publications</span>
-                <span>→</span>
-              </Link>
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </section>
-  );
-}
-
-/**
- * 4. Minimalist Modern Call to Action
- */
-function ModernCTASection() {
-  return (
-    <section className="relative w-full py-20 sm:py-24 px-4 sm:px-6 lg:px-8 bg-[#070b14] text-white border-t border-slate-800/80 text-center">
-      <div className="max-w-4xl mx-auto space-y-6">
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight">
-          Ready to Build the Future of{" "}
-          <span className="bg-gradient-to-r from-blue-400 via-cyan-300 to-teal-300 bg-clip-text text-transparent">
-            Robotics &amp; AI?
+        {/* Heading */}
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white mb-5 leading-tight">
+          Ready to Build Intelligent{" "}
+          <span className="bg-gradient-to-r from-cyan-300 via-teal-300 to-blue-400 bg-clip-text text-transparent">
+            Robotics &amp; AI Systems?
           </span>
         </h2>
-        <p className="text-base sm:text-lg text-slate-300 max-w-2xl mx-auto leading-relaxed">
-          Reach out to discuss customized defense robotics, industrial automation, or computer vision integrations with our research engineering team.
+
+        {/* Description */}
+        <p className="text-base sm:text-lg text-slate-300 leading-relaxed mb-8 max-w-2xl">
+          Whether you need autonomous defense solutions, industrial robotics, or custom AI computer vision, our engineering team is here to help.
         </p>
 
-        <div className="flex flex-wrap items-center justify-center gap-4 pt-4">
+        {/* Action Buttons */}
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4 w-full sm:w-auto mb-10">
           <Link
             href="/contact"
-            className="px-8 py-3.5 rounded-xl font-semibold text-white text-base bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 shadow-lg shadow-cyan-500/25 transition-all"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-base font-semibold text-white bg-gradient-to-r from-blue-600 via-cyan-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 transition-all shadow-lg shadow-cyan-500/25 active:scale-95"
           >
-            <span>Get in Touch</span>
+            <span>Get in Touch With Us</span>
+            <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+            </svg>
           </Link>
 
-          <Link
-            href="/products"
-            className="px-8 py-3.5 rounded-xl font-semibold text-slate-200 hover:text-white text-base border border-slate-700 bg-slate-900/80 hover:bg-slate-800 transition-all"
+          <a
+            href="tel:+919848126456"
+            className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl text-base font-semibold text-slate-200 bg-slate-800 hover:bg-slate-700 border border-slate-700 transition-all active:scale-95"
           >
-            <span>Explore All Products</span>
-          </Link>
+            <svg className="w-4 h-4 text-emerald-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <path strokeLinecap="round" strokeLinejoin="round" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+            </svg>
+            <span>Call +91 98481 26456</span>
+          </a>
+        </div>
+
+        {/* Corporate Trust Strip */}
+        <div className="pt-8 border-t border-slate-800 w-full grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs text-slate-400">
+          <div>
+            <span className="text-slate-500 block text-[11px]">Sister Company</span>
+            <span className="text-slate-200 font-medium">To Sri Saraswathi AI (Est. 2022)</span>
+          </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Office Headquarters</span>
+            <span className="text-slate-200 font-medium">Indiranagar, Bengaluru, India</span>
+          </div>
+          <div>
+            <span className="text-slate-500 block text-[11px]">Direct Liaison</span>
+            <span className="text-cyan-400 font-medium">srinivasulureddydadireddy@gmail.com</span>
+          </div>
         </div>
       </div>
     </section>
@@ -364,16 +285,16 @@ function ModernCTASection() {
 }
 
 /**
- * Modern Homepage
+ * Main Homepage
  */
 export default function Home() {
   return (
-    <main className="min-h-screen bg-[#070b14] text-white flex flex-col">
+    <main className="min-h-screen bg-slate-950 text-white selection:bg-cyan-500 selection:text-black flex flex-col">
       <HeroSection />
-      <InnovationBentoSection />
-      <CorporateSynergySection />
-      <FounderSpotlightSection />
-      <ModernCTASection />
+      <StatsCounter />
+      <FeaturedServices />
+      <WhyChooseUsSection />
+      <CTASection />
     </main>
   );
 }
