@@ -1,6 +1,6 @@
 "use client";
 
-import React, { createContext, useContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useSyncExternalStore } from "react";
 
 type Theme = "dark" | "light";
 
@@ -12,54 +12,62 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+function applyThemeToDOM(newTheme: Theme) {
+  if (typeof document === "undefined") return;
+  const root = document.documentElement;
+  if (newTheme === "dark") {
+    root.classList.remove("light");
+    root.classList.add("dark");
+    root.style.colorScheme = "dark";
+  } else {
+    root.classList.remove("dark");
+    root.classList.add("light");
+    root.style.colorScheme = "light";
+  }
+}
+
+function getThemeSnapshot(): Theme {
+  try {
+    const activePref = sessionStorage.getItem("ssair-theme-session-v2");
+    const localPref = localStorage.getItem("ssair-theme-v2");
+    const saved = activePref || localPref;
+    return saved === "light" ? "light" : "dark";
+  } catch {
+    return "dark";
+  }
+}
+
+function getServerSnapshot(): Theme {
+  return "dark";
+}
+
+function subscribeTheme(callback: () => void) {
+  window.addEventListener("storage", callback);
+  window.addEventListener("ssair-theme-change", callback);
+  return () => {
+    window.removeEventListener("storage", callback);
+    window.removeEventListener("ssair-theme-change", callback);
+  };
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
-  // Default to light mode for a clean, accessible, elegant look
-  const [theme, setThemeState] = useState<Theme>("light");
+  const theme = useSyncExternalStore(subscribeTheme, getThemeSnapshot, getServerSnapshot);
 
   useEffect(() => {
-    try {
-      const activePref = sessionStorage.getItem("ssair-theme-session") as Theme | null;
-      const localPref = localStorage.getItem("ssair-theme") as Theme | null;
-      const savedTheme = activePref || localPref;
-      
-      if (savedTheme === "dark") {
-        setThemeState("dark");
-        applyTheme("dark");
-      } else {
-        setThemeState("light");
-        applyTheme("light");
-      }
-    } catch {
-      applyTheme("light");
-    }
-  }, []);
-
-  const applyTheme = (newTheme: Theme) => {
-    if (typeof document === "undefined") return;
-    const root = document.documentElement;
-    if (newTheme === "dark") {
-      root.classList.remove("light");
-      root.classList.add("dark");
-      root.style.colorScheme = "dark";
-    } else {
-      root.classList.remove("dark");
-      root.classList.add("light");
-      root.style.colorScheme = "light";
-    }
-  };
+    applyThemeToDOM(theme);
+  }, [theme]);
 
   const setTheme = (newTheme: Theme) => {
-    setThemeState(newTheme);
     try {
-      sessionStorage.setItem("ssair-theme-session", newTheme);
-      localStorage.setItem("ssair-theme", newTheme);
+      sessionStorage.setItem("ssair-theme-session-v2", newTheme);
+      localStorage.setItem("ssair-theme-v2", newTheme);
     } catch {}
-    applyTheme(newTheme);
+    applyThemeToDOM(newTheme);
+    window.dispatchEvent(new Event("ssair-theme-change"));
   };
 
   const toggleTheme = () => {
-    const nextTheme = theme === "dark" ? "light" : "dark";
-    setTheme(nextTheme);
+    setTheme(theme === "dark" ? "light" : "dark");
   };
 
   return (

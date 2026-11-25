@@ -5,7 +5,6 @@ import {
   services,
   getCategoryById,
   Service,
-  ServiceCategory,
 } from "@/data/services";
 import AnimatedSection from "@/components/ui/AnimatedSection";
 import ServiceSvgIcon from "@/components/ui/ServiceSvgIcon";
@@ -235,13 +234,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
   }
 
   return (
-    <div className="relative min-h-screen bg-[#07090e] text-zinc-100 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden pt-24 sm:pt-28 pb-20 sm:pb-28">
+    <div className="relative min-h-screen bg-[#07090e] text-zinc-100 selection:bg-cyan-500/30 selection:text-cyan-200 overflow-x-hidden pt-28 sm:pt-36 pb-20 sm:pb-28">
       {/* High-Tech Background Cyber Grids & Glows */}
       <div className="fixed inset-0 pointer-events-none z-0">
-        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_70%_50%_at_50%_0%,#000_70%,transparent_100%)]" />
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-cyan-500/15 via-blue-600/10 to-transparent blur-3xl opacity-60" />
-        <div className="absolute top-[600px] right-0 w-[450px] h-[450px] bg-blue-600/10 blur-[130px]" />
-        <div className="absolute top-[1400px] left-0 w-[450px] h-[450px] bg-purple-600/10 blur-[130px]" />
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:4rem_4rem]" />
+        <div
+          className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] opacity-70"
+          style={{ background: "radial-gradient(closest-side, rgba(6, 182, 212, 0.16), rgba(37, 99, 235, 0.08), transparent)" }}
+        />
       </div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -308,7 +308,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         {/* 2. SERVICE HERO SECTION                                   */}
         {/* ========================================================= */}
         <AnimatedSection delay={0.1} className="mb-20 sm:mb-28">
-          <header className="relative rounded-3xl bg-slate-900/40 border border-white/10 p-6 sm:p-10 lg:p-14 backdrop-blur-xl shadow-2xl overflow-hidden">
+          <header className="relative rounded-3xl bg-slate-900/90 border border-white/10 p-6 sm:p-10 lg:p-14 shadow-2xl overflow-hidden">
             {/* Top ambient highlight line */}
             <div className="absolute -top-px left-12 right-12 h-px bg-gradient-to-r from-transparent via-cyan-400/60 to-transparent" />
 
@@ -382,14 +382,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                   <div className="relative w-32 h-32 sm:w-40 sm:h-40 rounded-3xl bg-slate-950/80 border-2 border-white/20 flex flex-col items-center justify-center backdrop-blur-2xl shadow-2xl group-hover:border-cyan-400/60 transition-all duration-300">
                     {/* Rotating Tech Reticle */}
                     <div className="absolute inset-2 rounded-2xl border border-dashed border-cyan-500/30 animate-[spin_30s_linear_infinite]" />
-                    <span
-                      className="text-6xl sm:text-7xl select-none transform group-hover:scale-110 transition-transform duration-300 relative z-10"
-                      role="img"
-                      aria-label={service.title}
-                    >
-                      {service.icon}
-                    </span>
-                    <span className="mt-2 text-[10px] font-mono tracking-widest text-cyan-400 uppercase font-semibold">
+                    <ServiceSvgIcon
+                      slug={service.slug}
+                      id={service.id}
+                      name={service.title}
+                      category={service.category}
+                      className="w-14 h-14 sm:w-16 sm:h-16 text-cyan-400 transform group-hover:scale-110 transition-transform duration-300 relative z-10"
+                    />
+                    <span className="mt-2.5 text-[10px] font-mono tracking-widest text-cyan-400 uppercase font-semibold">
                       SSAIR • SYS
                     </span>
                   </div>
@@ -429,7 +429,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               {service.features.map((feature, idx) => (
                 <div
                   key={idx}
-                  className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-2xl bg-slate-900/40 border border-white/10 hover:border-cyan-500/40 backdrop-blur-xl transition-all duration-300 shadow-xl hover:shadow-cyan-500/5 hover:-translate-y-1"
+                  className="group relative flex flex-col justify-between p-6 sm:p-8 rounded-2xl bg-slate-900/85 border border-white/10 hover:border-cyan-500/40 transition-colors duration-200 shadow-xl hover:-translate-y-1"
                 >
                   {/* Subtle top edge glow on hover */}
                   <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -443,7 +443,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
 
                       {/* Feature Counter */}
                       <span className="text-xs font-mono font-bold tracking-widest text-zinc-500 group-hover:text-cyan-400 transition-colors">
-                        0{idx + 1} // CAPABILITY
+                        0{idx + 1} {"//"} CAPABILITY
                       </span>
                     </div>
 
@@ -473,7 +473,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
         {/* 4. TECHNOLOGIES SECTION                                   */}
         {/* ========================================================= */}
         <AnimatedSection delay={0.2} className="mb-20 sm:mb-28">
-          <div className="rounded-3xl bg-slate-900/40 border border-white/10 p-6 sm:p-10 lg:p-12 backdrop-blur-xl shadow-2xl relative overflow-hidden space-y-8">
+          <div className="rounded-3xl bg-slate-900/85 border border-white/10 p-6 sm:p-10 lg:p-12 shadow-2xl relative overflow-hidden space-y-8">
             <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 pb-4 border-b border-white/10">
               <div className="space-y-2">
                 <div className="inline-flex items-center gap-2 text-xs font-mono font-semibold uppercase tracking-widest text-cyan-400">
@@ -553,7 +553,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                 return (
                   <div
                     key={rel.slug}
-                    className="group relative flex flex-col justify-between rounded-2xl bg-slate-900/40 border border-white/10 hover:border-cyan-500/40 backdrop-blur-xl p-6 sm:p-7 transition-all duration-300 shadow-xl hover:shadow-cyan-500/10 hover:-translate-y-1.5"
+                    className="group relative flex flex-col justify-between rounded-2xl bg-slate-900/85 border border-white/10 hover:border-cyan-500/40 p-6 sm:p-7 transition-colors duration-200 shadow-xl hover:-translate-y-1"
                   >
                     {/* Top ambient highlight on hover */}
                     <div className="absolute -top-px left-8 right-8 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -561,8 +561,14 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                     <div className="space-y-4">
                       {/* Header with Icon & Category */}
                       <div className="flex items-center justify-between gap-2">
-                        <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 group-hover:border-cyan-400/40 text-2xl transition-all shadow-inner">
-                          {rel.icon}
+                        <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white/5 border border-white/10 group-hover:border-cyan-400/40 text-cyan-400 transition-all shadow-inner">
+                          <ServiceSvgIcon
+                            slug={rel.slug}
+                            id={rel.id}
+                            name={rel.title}
+                            category={rel.category}
+                            className="w-6 h-6"
+                          />
                         </div>
                         <span
                           className={`text-[10px] font-mono font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full border ${relTheme.badge}`}

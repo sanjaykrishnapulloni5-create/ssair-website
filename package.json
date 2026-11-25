@@ -14,7 +14,9 @@
     "@prisma/client": "^6.19.3",
     "@react-three/drei": "^10.7.9",
     "@react-three/fiber": "^9.8.2",
+    "bcryptjs": "^3.0.3",
     "framer-motion": "^14.14.0",
+    "jsonwebtoken": "^9.0.3",
     "next": "16.4.6",
     "react": "19.3.0",
     "react-dom": "19.3.0",
@@ -23,6 +25,8 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.5",
     "@tailwindcss/turbopack": "4.3.3",
+    "@types/bcryptjs": "^2.4.6",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",

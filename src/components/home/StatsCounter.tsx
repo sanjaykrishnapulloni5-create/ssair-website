@@ -157,7 +157,7 @@ function StatCard({ stat, index }: StatCardProps) {
       initial={{ opacity: 0, y: 30 }}
       animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
       transition={{ duration: 0.6, delay: index * 0.1, ease: "easeOut" }}
-      className="relative flex flex-col items-center justify-between p-6 sm:p-8 rounded-2xl bg-white/[0.03] border border-white/[0.08] hover:border-cyan-500/40 hover:bg-white/[0.06] backdrop-blur-md transition-all duration-300 group shadow-lg shadow-black/20"
+      className="relative flex flex-col items-center justify-between p-6 sm:p-8 rounded-2xl bg-slate-900/80 border border-white/[0.08] hover:border-cyan-500/40 hover:bg-slate-900 transition-all duration-200 group shadow-lg shadow-black/20"
     >
       {/* Top subtle highlight line */}
       <div
@@ -221,22 +221,24 @@ export function StatsCounter({
       aria-label="SSAIR Key Statistics and Achievements"
       className={`relative w-full py-16 sm:py-20 lg:py-24 px-4 sm:px-6 lg:px-8 overflow-hidden ${className}`}
     >
-      {/* Background Ambient Glows */}
+      {/* Background Ambient Glows (Radial gradients, zero filter blur) */}
       <div
-        className="absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/2 w-80 sm:w-96 h-80 sm:h-96 bg-blue-600/15 rounded-full blur-[120px] pointer-events-none"
+        className="absolute top-1/2 left-1/4 -translate-y-1/2 -translate-x-1/2 w-96 h-96 pointer-events-none"
+        style={{ background: "radial-gradient(closest-side, rgba(37, 99, 235, 0.16), transparent)" }}
         aria-hidden="true"
       />
       <div
-        className="absolute top-1/2 right-1/4 -translate-y-1/2 translate-x-1/2 w-80 sm:w-96 h-80 sm:h-96 bg-cyan-500/15 rounded-full blur-[120px] pointer-events-none"
+        className="absolute top-1/2 right-1/4 -translate-y-1/2 translate-x-1/2 w-96 h-96 pointer-events-none"
+        style={{ background: "radial-gradient(closest-side, rgba(6, 182, 212, 0.16), transparent)" }}
         aria-hidden="true"
       />
 
-      {/* Dark Glass Container */}
+      {/* Dark Container */}
       <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={isSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-        transition={{ duration: 0.7, ease: "easeOut" }}
-        className="relative max-w-7xl mx-auto rounded-3xl bg-gray-950/70 border border-white/10 backdrop-blur-2xl p-6 sm:p-10 lg:p-12 shadow-[0_8px_32px_0_rgba(0,0,0,0.45)] overflow-hidden"
+        initial={{ opacity: 0, y: 20 }}
+        animate={isSectionInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
+        transition={{ duration: 0.45, ease: "easeOut" }}
+        className="relative max-w-7xl mx-auto rounded-3xl bg-gray-950/90 border border-white/10 p-6 sm:p-10 lg:p-12 shadow-[0_8px_32px_0_rgba(0,0,0,0.45)] overflow-hidden"
       >
         {/* Subtle top edge glossy highlight line */}
         <div

@@ -7,6 +7,65 @@ generator client {
   provider = "prisma-client-js"
 }
 
+// ─── Auth ────────────────────────────────────────────────────
+model User {
+  id            Int      @id @default(autoincrement())
+  name          String
+  email         String   @unique
+  passwordHash  String?            // null for OAuth-only users
+  avatar        String?
+  role          String   @default("STUDENT") // STUDENT | TEACHER | ADMIN
+  provider      String   @default("credentials") // credentials | google
+  providerId    String?            // e.g. Google sub
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  teachingApplications TeachingApplication[]
+  projectRequests      ProjectRequest[]
+}
+
+model Session {
+  id        String   @id @default(cuid())
+  userId    Int
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+model TeachingApplication {
+  id              Int      @id @default(autoincrement())
+  userId          Int
+  user            User     @relation(fields: [userId], references: [id])
+  fullName        String
+  email           String
+  phone           String
+  qualification   String
+  specialization  String
+  experience      String
+  motivation      String
+  resumeUrl       String?
+  status          String   @default("PENDING") // PENDING | REVIEWING | ACCEPTED | REJECTED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model ProjectRequest {
+  id             Int      @id @default(autoincrement())
+  userId         Int?
+  user           User?    @relation(fields: [userId], references: [id])
+  fullName       String
+  email          String
+  phone          String
+  track          String   // Enterprise & Defense | B.Tech / M.Tech Capstone | PhD & IEEE Research | Workshop | Internship
+  domain         String   // Defence & UAV | Robotics | Computer Vision & AI | Embedded & IoT | Space & Civil AI
+  projectCode    String?
+  title          String
+  requirements   String
+  status         String   @default("SUBMITTED") // SUBMITTED | UNDER_REVIEW | APPROVED | IN_PROGRESS
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+// ─── Existing models ─────────────────────────────────────────
 model ContactInquiry {
   id        Int      @id @default(autoincrement())
   name      String

@@ -1,13 +1,39 @@
 import type { Metadata, Viewport } from "next";
+import { Plus_Jakarta_Sans, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { Navbar, Footer } from "@/components/layout";
 import { ThemeProvider } from "@/context/ThemeContext";
+import { AuthProvider } from "@/context/AuthContext";
+import { UIModalProvider } from "@/context/UIModalContext";
 import LoadingScreen from "@/components/ui/LoadingScreen";
+import ScrollProgress from "@/components/ui/ScrollProgress";
+import BlueprintModal from "@/components/ui/BlueprintModal";
+import StartProjectModal from "@/components/ui/StartProjectModal";
+import CommandSearchModal from "@/components/ui/CommandSearchModal";
+import QuickAssistDock from "@/components/ui/QuickAssistDock";
+
+const jakarta = Plus_Jakarta_Sans({
+  subsets: ["latin"],
+  variable: "--font-jakarta",
+  display: "swap",
+});
+
+const spaceGrotesk = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-space",
+  display: "swap",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  variable: "--font-jetbrains",
+  display: "swap",
+});
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: light)", color: "#ffffff" },
-    { media: "(prefers-color-scheme: dark)", color: "#0f172a" },
+    { media: "(prefers-color-scheme: dark)", color: "#050811" },
+    { media: "(prefers-color-scheme: light)", color: "#f8fafc" },
   ],
   width: "device-width",
   initialScale: 1,
@@ -16,9 +42,9 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://ssair.in"),
-  title: "Sri Srinivasa AI Robotics (SSAIR) | Intelligent Robotics & AI Solutions",
+  title: "Sri Srinivasa AI Robotics (SSAIR) | Autonomous Robotics, Defense AI & R&D Academy",
   description:
-    "Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR) is a premier Indian technology company engineering intelligent robotics, defense drones, and computer vision systems. Sister company of Sri Saraswathi AI & Robotics.",
+    "Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR) engineers autonomous drones, defense robotics, industrial 5-bar kinematics, computer vision, and hands-on R&D fellowships. Sister company of Sri Saraswathi AI & Robotics.",
   keywords: [
     "Sri Srinivasa AI Robotics",
     "SSAIR",
@@ -30,6 +56,7 @@ export const metadata: Metadata = {
     "Defense Drones",
     "Autonomous Systems",
     "Industrial Robotics",
+    "AI Robotics Internships Workshops",
     "Bengaluru Robotics",
   ],
   authors: [{ name: "Sri Srinivasa AI Robotics Pvt. Ltd." }],
@@ -42,12 +69,12 @@ export const metadata: Metadata = {
     siteName: "SSAIR - Sri Srinivasa AI Robotics",
     title: "Sri Srinivasa AI Robotics (SSAIR) | Intelligent Robotics & AI Solutions",
     description:
-      "Intelligent robotics, autonomous defense systems, and computer vision founded by former DRDO CAIR Scientist 'D' Dr. Dadireddy Srinivasulu Reddy (IISc alumnus).",
+      "Intelligent robotics, autonomous defense systems, computer vision, and deep-tech student R&D fellowships founded by former DRDO CAIR Scientist 'D' Dr. Dadireddy Srinivasulu Reddy (IISc alumnus).",
     images: [
       {
-        url: "/og-image.jpg",
+        url: "/images/academy-lab.jpg",
         width: 1200,
-        height: 630,
+        height: 675,
         alt: "SSAIR - Sri Srinivasa AI Robotics Pvt. Ltd.",
       },
     ],
@@ -63,19 +90,38 @@ export const metadata: Metadata = {
   },
 };
 
+const themeInitScript = `(function(){try{var s=sessionStorage.getItem('ssair-theme-session-v2')||localStorage.getItem('ssair-theme-v2');var t=s==='light'?'light':'dark';var r=document.documentElement;r.classList.remove('light','dark');r.classList.add(t);r.style.colorScheme=t;}catch(e){document.documentElement.classList.add('dark');}})();`;
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth" suppressHydrationWarning>
-      <body className="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 flex flex-col antialiased selection:bg-blue-600 selection:text-white font-sans transition-colors duration-200">
+    <html
+      lang="en"
+      className={`${jakarta.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <meta name="color-scheme" content="dark light" />
+        <script dangerouslySetInnerHTML={{ __html: themeInitScript }} />
+      </head>
+      <body className="min-h-screen bg-[var(--background)] text-[var(--foreground)] flex flex-col antialiased selection:bg-cyan-500 selection:text-slate-950 font-sans transition-colors duration-200">
         <ThemeProvider>
-          <LoadingScreen />
-          <Navbar />
-          <main className="flex-1 w-full flex flex-col">{children}</main>
-          <Footer />
+          <AuthProvider>
+            <UIModalProvider>
+              <LoadingScreen />
+              <ScrollProgress />
+              <Navbar />
+              <main className="flex-1 w-full flex flex-col">{children}</main>
+              <Footer />
+              <BlueprintModal />
+              <StartProjectModal />
+              <CommandSearchModal />
+              <QuickAssistDock />
+            </UIModalProvider>
+          </AuthProvider>
         </ThemeProvider>
       </body>
     </html>

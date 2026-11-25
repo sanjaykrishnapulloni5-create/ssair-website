@@ -59,7 +59,7 @@ export function ParticleBackground({
       {particles.map((particle) => (
         <span
           key={particle.id}
-          className={`absolute rounded-full bg-blue-400/40 dark:bg-cyan-300/30 blur-[0.5px] ${particleClassName}`.trim()}
+          className={`absolute rounded-full bg-blue-400/40 dark:bg-cyan-300/35 ${particleClassName}`.trim()}
           style={{
             left: `${particle.x}%`,
             top: `${particle.y}%`,

@@ -1,13 +1,15 @@
 "use client";
 
 import React from "react";
+import SpotlightCard from "@/components/ui/SpotlightCard";
 
 export interface NewsCardProps {
   title: string;
   date: string;
   excerpt: string;
   category: "Research" | "News" | "Achievement" | string;
-  link?: string;
+  tags?: string[];
+  onReadMore?: () => void;
 }
 
 export default function NewsCard({
@@ -15,36 +17,53 @@ export default function NewsCard({
   date,
   excerpt,
   category,
-  link,
+  tags = [],
+  onReadMore,
 }: NewsCardProps) {
   return (
-    <div className="group flex flex-col justify-between h-full rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 p-6 sm:p-7 hover:border-blue-400 dark:hover:border-blue-500 hover:shadow-lg transition-all duration-200">
-      <div>
-        <div className="flex items-center justify-between gap-2 mb-4">
-          <span className="px-3 py-1 rounded-full text-xs font-semibold bg-blue-50 dark:bg-blue-950/60 text-blue-700 dark:text-blue-300">
-            {category}
-          </span>
-          <span className="text-xs text-slate-500">{date}</span>
+    <SpotlightCard className="group p-6 sm:p-7 flex flex-col justify-between h-full">
+      <div className="flex flex-col justify-between h-full">
+        <div>
+          <div className="flex items-center justify-between gap-2 mb-4">
+            <span className="px-3 py-1 rounded-full text-xs font-mono font-semibold bg-cyan-500/10 text-sky-700 dark:text-cyan-300 border border-cyan-500/25">
+              {category}
+            </span>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400">{date}</span>
+          </div>
+
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-sky-600 dark:group-hover:text-cyan-300 transition-colors mb-2.5 leading-snug">
+            {title}
+          </h3>
+
+          <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
+            {excerpt}
+          </p>
+
+          {tags.length > 0 && (
+            <div className="flex flex-wrap gap-1.5 mt-4">
+              {tags.map((t) => (
+                <span
+                  key={t}
+                  className="px-2 py-0.5 text-[11px] font-mono rounded bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-slate-700/70"
+                >
+                  {t}
+                </span>
+              ))}
+            </div>
+          )}
         </div>
 
-        <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors mb-2 leading-snug">
-          {title}
-        </h3>
-
-        <p className="text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
-          {excerpt}
-        </p>
+        <div className="pt-4 mt-5 border-t border-slate-100 dark:border-white/10">
+          <button
+            type="button"
+            onClick={onReadMore}
+            className="text-xs font-semibold text-sky-600 dark:text-cyan-400 hover:text-sky-700 dark:hover:text-cyan-300 inline-flex items-center gap-1 cursor-pointer"
+          >
+            <span>Read Full Abstract &amp; Details</span>
+            <span className="group-hover:translate-x-1 transition-transform">→</span>
+          </button>
+        </div>
       </div>
-
-      <div className="pt-4 mt-4 border-t border-slate-100 dark:border-slate-800">
-        <a
-          href={link || "#"}
-          className="text-xs font-semibold text-blue-600 dark:text-blue-400 hover:text-blue-700 dark:hover:text-blue-300 inline-flex items-center gap-1"
-        >
-          <span>Read Details</span>
-          <span>→</span>
-        </a>
-      </div>
-    </div>
+    </SpotlightCard>
   );
 }
