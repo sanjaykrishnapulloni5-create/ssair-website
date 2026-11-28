@@ -6,6 +6,7 @@ import { usePathname } from "next/navigation";
 import ThemeToggle from "@/components/ui/ThemeToggle";
 import { useAuth } from "@/context/AuthContext";
 import { useUIModals } from "@/context/UIModalContext";
+import { BrandEmblem } from "@/components/ui/BrandEmblem";
 
 interface NavItem {
   name: string;
@@ -166,10 +167,10 @@ export function Navbar() {
             className="flex items-center gap-3 group focus:outline-none shrink-0"
             aria-label="SSAIR - Sri Srinivasa AI Robotics Home"
           >
-            <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-sky-500 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-cyan-500/25 group-hover:scale-105 transition-transform">
-              SS
-              <span className="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 rounded-full bg-emerald-400 border-2 border-white dark:border-[#050811]" />
-            </div>
+            <BrandEmblem
+              className="w-10 h-10 group-hover:scale-105 transition-transform"
+              showStatusDot
+            />
             <div className="flex flex-col">
               <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white leading-none">
                 SS<span className="text-sky-600 dark:text-cyan-400">AIR</span>

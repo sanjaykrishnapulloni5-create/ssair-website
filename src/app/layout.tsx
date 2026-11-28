@@ -86,7 +86,12 @@ export const metadata: Metadata = {
       "Intelligent robotics, autonomous defense systems, and AI solutions founded by former DRDO CAIR scientist Dr. Dadireddy Srinivasulu Reddy.",
   },
   icons: {
-    icon: "/favicon.ico",
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon-192.png", type: "image/png", sizes: "192x192" },
+    ],
+    apple: [{ url: "/apple-touch-icon.png", sizes: "180x180", type: "image/png" }],
+    shortcut: "/favicon.ico",
   },
 };
 

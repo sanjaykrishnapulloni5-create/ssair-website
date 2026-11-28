@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
 import { motion } from "framer-motion";
 import ModalDialog from "@/components/ui/ModalDialog";
+import { BrandEmblem } from "@/components/ui/BrandEmblem";
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -80,9 +81,7 @@ export default function RegisterPage() {
         <div className="bg-white dark:bg-[#091022] rounded-3xl border border-slate-200 dark:border-cyan-500/25 shadow-2xl p-8 sm:p-10">
           <div className="text-center mb-7">
             <Link href="/" className="inline-flex items-center gap-2.5 mb-5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm shadow-md shadow-cyan-500/25">
-                SS
-              </div>
+              <BrandEmblem className="w-11 h-11" />
               <span className="text-xl font-bold tracking-tight text-slate-900 dark:text-white">
                 SS<span className="text-sky-600 dark:text-cyan-400">AIR</span>
               </span>

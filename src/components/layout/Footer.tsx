@@ -1,5 +1,6 @@
 import Link from "next/link";
 import React from "react";
+import { BrandEmblem } from "@/components/ui/BrandEmblem";
 
 export function Footer() {
   const quickLinks = [
@@ -37,9 +38,7 @@ export function Footer() {
           {/* Column 1: Brand & Corporate Lineage */}
           <div className="lg:col-span-2 space-y-4">
             <Link href="/" className="inline-flex items-center gap-2.5 group">
-              <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-blue-600 to-cyan-400 flex items-center justify-center text-white font-bold text-sm">
-                SS
-              </div>
+              <BrandEmblem className="w-10 h-10 group-hover:scale-105 transition-transform" />
               <span className="text-2xl font-bold tracking-tight text-white">
                 SS<span className="text-cyan-400">AIR</span>
               </span>

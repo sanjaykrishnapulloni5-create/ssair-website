@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { BrandEmblem } from "@/components/ui/BrandEmblem";
 
 export default function LoadingScreen() {
   const [loading, setLoading] = useState(true);
@@ -47,9 +48,7 @@ export default function LoadingScreen() {
             <div className="w-20 h-20 rounded-full border border-cyan-500/30 animate-radar flex items-center justify-center">
               <span className="absolute -top-1 w-2 h-2 rounded-full bg-cyan-400 shadow-[0_0_10px_#22d3ee]" />
             </div>
-            <div className="absolute w-14 h-14 rounded-2xl bg-gradient-to-br from-blue-600 to-cyan-500 flex items-center justify-center text-white font-bold text-lg shadow-lg shadow-cyan-500/30">
-              SS
-            </div>
+            <BrandEmblem className="absolute w-14 h-14 shadow-lg shadow-cyan-500/20" />
           </div>
 
           <p className="text-[11px] font-mono tracking-[0.28em] text-cyan-400 uppercase mb-2">
