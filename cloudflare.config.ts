@@ -4,6 +4,7 @@ import { createWorkersCacheConfig } from "@vinext/cloudflare/cache/config";
 const cache = await createWorkersCacheConfig();
 
 export default defineConfig({
+  accountId: "3016fed85823e570a5e53a2f17860e15",
   worker: defineWorker({
     ...cache,
     name: "ssair-website",
@@ -29,7 +30,10 @@ export default defineConfig({
     env: {
       ...cache.env,
       ASSETS: bindings.assets(),
-      DB: bindings.d1({ name: "ssair-db" }),
+      DB: bindings.d1({
+        id: "23406e7c-1e6b-41f2-b7ba-f63b15624165",
+        name: "ssair-db",
+      }),
     },
   }),
 });
