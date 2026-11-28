@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import React, { Suspense } from "react";
 import ContactForm from "@/components/contact/ContactForm";
 import SpotlightCard from "@/components/ui/SpotlightCard";
 
@@ -32,7 +33,9 @@ export default function ContactPage() {
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
           <div className="lg:col-span-7">
-            <ContactForm />
+            <Suspense fallback={<div className="h-[480px] rounded-3xl bg-white dark:bg-slate-900/80 border border-slate-200 dark:border-white/10" />}>
+              <ContactForm />
+            </Suspense>
           </div>
 
           <div className="lg:col-span-5 space-y-6">

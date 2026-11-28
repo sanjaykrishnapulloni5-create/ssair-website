@@ -25,17 +25,19 @@ function StartProjectForm({
   prefill,
   userName,
   userEmail,
+  userPhone,
   onClose,
 }: {
   prefill: StartProjectPrefill;
   userName: string;
   userEmail: string;
+  userPhone: string;
   onClose: () => void;
 }) {
   const [form, setForm] = useState({
     fullName: userName,
     email: userEmail,
-    phone: "",
+    phone: userPhone,
     track: prefill.track || "Enterprise & Defense",
     domain: prefill.domain || "Defence & UAV",
     projectCode: prefill.projectCode || "",
@@ -58,7 +60,7 @@ function StartProjectForm({
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(form),
       });
-      const data = await res.json();
+      const data = (await res.json()) as { error?: string };
       if (res.ok) {
         setSuccess(true);
       } else {
@@ -285,6 +287,7 @@ export function StartProjectModal() {
             prefill={startProjectPrefill}
             userName={user?.name || ""}
             userEmail={user?.email || ""}
+            userPhone={user?.phone || ""}
             onClose={closeStartProject}
           />
         </div>

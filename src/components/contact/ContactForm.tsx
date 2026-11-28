@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import { useSearchParams } from "next/navigation";
+import { useAuth, type AuthUser } from "@/context/AuthContext";
 
 interface FormData {
   name: string;
@@ -21,12 +23,18 @@ const SUBJECT_OPTIONS = [
   "Other",
 ];
 
-export default function ContactForm() {
+function ContactFormInner({
+  user,
+  querySubject,
+}: {
+  user: AuthUser | null;
+  querySubject: string;
+}) {
   const [formData, setFormData] = useState<FormData>({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
+    name: user?.name || "",
+    email: user?.email || "",
+    phone: user?.phone || "",
+    subject: querySubject,
     message: "",
   });
 
@@ -43,7 +51,7 @@ export default function ContactForm() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.message) {
+    if (!formData.name.trim() || !formData.email.trim() || !formData.message.trim()) {
       setErrorMessage("Please fill in your name, email, and message.");
       return;
     }
@@ -56,7 +64,7 @@ export default function ContactForm() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
-      const data = await res.json();
+      const data = (await res.json()) as { success?: boolean; error?: string };
       if (res.ok && data.success) {
         setIsSuccess(true);
       } else {
@@ -68,6 +76,11 @@ export default function ContactForm() {
       setIsSubmitting(false);
     }
   };
+
+  const availableSubjects =
+    querySubject && !SUBJECT_OPTIONS.includes(querySubject)
+      ? [querySubject, ...SUBJECT_OPTIONS]
+      : SUBJECT_OPTIONS;
 
   if (isSuccess) {
     return (
@@ -87,7 +100,13 @@ export default function ContactForm() {
           type="button"
           onClick={() => {
             setIsSuccess(false);
-            setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+            setFormData({
+              name: user?.name || "",
+              email: user?.email || "",
+              phone: user?.phone || "",
+              subject: querySubject,
+              message: "",
+            });
           }}
           className="mt-4 px-6 py-2.5 rounded-full text-xs font-semibold bg-gradient-to-r from-blue-600 to-cyan-500 text-white cursor-pointer"
         >
@@ -178,7 +197,7 @@ export default function ContactForm() {
               className="w-full min-h-[44px] px-4 py-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-800/70 text-base sm:text-sm text-slate-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-cyan-500"
             >
               <option value="">Select a topic...</option>
-              {SUBJECT_OPTIONS.map((sub) => (
+              {availableSubjects.map((sub) => (
                 <option key={sub} value={sub}>
                   {sub}
                 </option>
@@ -196,6 +215,7 @@ export default function ContactForm() {
             name="message"
             rows={4}
             required
+            minLength={5}
             value={formData.message}
             onChange={handleChange}
             placeholder="Tell us about your project requirements or question..."
@@ -213,4 +233,13 @@ export default function ContactForm() {
       </form>
     </div>
   );
+}
+
+export default function ContactForm() {
+  const searchParams = useSearchParams();
+  const { user } = useAuth();
+  const querySubject = searchParams.get("subject")?.trim() || "";
+  const formKey = `${user?.email || "guest"}::${querySubject}`;
+
+  return <ContactFormInner key={formKey} user={user} querySubject={querySubject} />;
 }

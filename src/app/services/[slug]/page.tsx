@@ -363,15 +363,15 @@ export default async function ServiceDetailPage({ params }: PageProps) {
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
                     </svg>
                   </a>
-                  <a
-                    href="#contact-cta"
+                  <Link
+                    href={`/contact?subject=${encodeURIComponent(service.title)}`}
                     className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-blue-600 to-cyan-500 hover:from-blue-500 hover:to-cyan-400 text-white text-xs sm:text-sm font-semibold shadow-[0_0_20px_rgba(6,182,212,0.3)] transition-all duration-200"
                   >
                     <span>Request Technical Brief</span>
                     <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                     </svg>
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -663,7 +663,7 @@ export default async function ServiceDetailPage({ params }: PageProps) {
               {/* Action Buttons */}
               <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-4">
                 <Link
-                  href="/contact"
+                  href={`/contact?subject=${encodeURIComponent(service.title)}`}
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-4 rounded-xl font-semibold text-sm bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 hover:from-blue-500 hover:via-cyan-400 hover:to-teal-300 text-black shadow-[0_0_25px_rgba(6,182,212,0.35)] transition-all duration-300 transform hover:-translate-y-0.5 active:translate-y-0"
                 >
                   <span>Get in Touch</span>

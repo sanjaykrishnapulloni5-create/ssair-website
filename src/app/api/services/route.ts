@@ -1,18 +1,14 @@
 import { NextRequest, NextResponse } from "next/server";
-import { services, type Service } from "@/data/services";
+import { services as staticServices, type Service, type ServiceCategory } from "@/data/services";
+import { dbCatalog } from "@/lib/db";
+import { logStructured } from "@/lib/validation";
 
-/**
- * CORS headers for cross-origin requests.
- */
 const corsHeaders: Record<string, string> = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "GET, OPTIONS",
   "Access-Control-Allow-Headers": "Content-Type, Authorization",
 };
 
-/**
- * OPTIONS handler for CORS preflight requests.
- */
 export async function OPTIONS() {
   return new NextResponse(null, {
     status: 204,
@@ -20,38 +16,64 @@ export async function OPTIONS() {
   });
 }
 
-/**
- * GET handler for retrieving SSAIR services.
- *
- * Accepts optional query parameter:
- * - `category`: Filter services by category (e.g., "ai-software", "defence-aerospace",
- *   "robotics-autonomous", "innovation-research", or formatted names like "Defence", "Robotics", "AI & Software").
- *
- * Returns filtered or all services as a JSON array.
- */
+function parseJsonArray(raw: string): string[] {
+  try {
+    const parsed = JSON.parse(raw);
+    return Array.isArray(parsed) ? parsed.map(String) : [];
+  } catch {
+    return [];
+  }
+}
+
 export async function GET(request: NextRequest) {
   try {
     const { searchParams } = new URL(request.url);
     const categoryParam = searchParams.get("category");
+    const queryParam = searchParams.get("q");
 
-    let result: Service[] = services;
+    // Fetch from D1/SQLite and enrich with canonical display metadata
+    let allServices: Service[] = staticServices;
+    try {
+      const dbRows = await dbCatalog.listServices();
+      if (dbRows.length > 0) {
+        allServices = dbRows.map((row) => {
+          const staticMatch = staticServices.find((s) => s.slug === row.slug);
+          return {
+            id: row.slug,
+            number: row.id,
+            slug: row.slug,
+            title: row.title,
+            icon: staticMatch?.icon || row.icon,
+            emoji: staticMatch?.emoji,
+            shortDescription: row.shortDescription,
+            description: staticMatch?.description || row.shortDescription,
+            fullDescription: row.fullDescription,
+            category: row.icon as ServiceCategory,
+            categoryName: row.category,
+            features: parseJsonArray(row.features),
+            technologies: parseJsonArray(row.technologies),
+            href: `/services/${row.slug}`,
+          };
+        });
+      }
+    } catch {
+      // Fallback cleanly to static catalog
+    }
+
+    let result = allServices;
 
     if (categoryParam && categoryParam.trim()) {
       const normalizedParam = categoryParam.trim().toLowerCase();
-
-      // If category is "all", return all services
       if (normalizedParam !== "all") {
         const slugParam = normalizedParam
           .replace(/[^a-z0-9]+/g, "-")
           .replace(/^-+|-+$/g, "");
 
-        // 1. Attempt exact match against category id or display category name (including slugified variations)
-        const exactMatches = services.filter((service) => {
+        const exactMatches = allServices.filter((service) => {
           const cat = (service.category || "").toLowerCase();
           const catName = (service.categoryName || "").toLowerCase();
           const slugCat = cat.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
           const slugCatName = catName.replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-
           return (
             cat === normalizedParam ||
             catName === normalizedParam ||
@@ -60,34 +82,42 @@ export async function GET(request: NextRequest) {
           );
         });
 
-        if (exactMatches.length > 0) {
-          result = exactMatches;
-        } else {
-          // 2. Fallback to substring matching (e.g. "defence", "robotics", "ai")
-          result = services.filter((service) => {
-            const cat = (service.category || "").toLowerCase();
-            const catName = (service.categoryName || "").toLowerCase();
-            return cat.includes(normalizedParam) || catName.includes(normalizedParam);
-          });
-        }
+        result =
+          exactMatches.length > 0
+            ? exactMatches
+            : allServices.filter((service) => {
+                const cat = (service.category || "").toLowerCase();
+                const catName = (service.categoryName || "").toLowerCase();
+                return cat.includes(normalizedParam) || catName.includes(normalizedParam);
+              });
       }
+    }
+
+    if (queryParam && queryParam.trim()) {
+      const q = queryParam.trim().toLowerCase();
+      result = result.filter(
+        (s) =>
+          s.title.toLowerCase().includes(q) ||
+          s.shortDescription.toLowerCase().includes(q) ||
+          s.technologies.some((t) => t.toLowerCase().includes(q))
+      );
     }
 
     return NextResponse.json(result, {
       status: 200,
-      headers: corsHeaders,
+      headers: {
+        ...corsHeaders,
+        "Cache-Control": "public, max-age=300, s-maxage=600",
+      },
     });
   } catch (error) {
-    console.error("[SSAIR Services API] Error fetching services:", error);
+    logStructured("error", "services_fetch_error", {
+      error: error instanceof Error ? error.message : String(error),
+    });
 
     return NextResponse.json(
-      {
-        error: "Failed to retrieve services. Please try again later.",
-      },
-      {
-        status: 500,
-        headers: corsHeaders,
-      }
+      { error: "Failed to retrieve services. Please try again later." },
+      { status: 500, headers: corsHeaders }
     );
   }
 }

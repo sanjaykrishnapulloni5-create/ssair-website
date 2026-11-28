@@ -12,14 +12,17 @@ model User {
   id            Int      @id @default(autoincrement())
   name          String
   email         String   @unique
-  passwordHash  String?            // null for OAuth-only users
+  passwordHash  String?            // PBKDF2-SHA256 hash; null for OAuth-only users
   avatar        String?
+  phone         String?
+  institution   String?
   role          String   @default("STUDENT") // STUDENT | TEACHER | ADMIN
   provider      String   @default("credentials") // credentials | google
   providerId    String?            // e.g. Google sub
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 
+  sessions             Session[]
   teachingApplications TeachingApplication[]
   projectRequests      ProjectRequest[]
 }
@@ -27,14 +30,18 @@ model User {
 model Session {
   id        String   @id @default(cuid())
   userId    Int
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   expiresAt DateTime
   createdAt DateTime @default(now())
+
+  @@index([userId])
+  @@index([expiresAt])
 }
 
 model TeachingApplication {
   id              Int      @id @default(autoincrement())
   userId          Int
-  user            User     @relation(fields: [userId], references: [id])
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
   fullName        String
   email           String
   phone           String
@@ -46,12 +53,14 @@ model TeachingApplication {
   status          String   @default("PENDING") // PENDING | REVIEWING | ACCEPTED | REJECTED
   createdAt       DateTime @default(now())
   updatedAt       DateTime @updatedAt
+
+  @@index([userId, status])
 }
 
 model ProjectRequest {
   id             Int      @id @default(autoincrement())
   userId         Int?
-  user           User?    @relation(fields: [userId], references: [id])
+  user           User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
   fullName       String
   email          String
   phone          String
@@ -63,9 +72,13 @@ model ProjectRequest {
   status         String   @default("SUBMITTED") // SUBMITTED | UNDER_REVIEW | APPROVED | IN_PROGRESS
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
+  @@index([userId])
+  @@index([email])
+  @@index([status])
 }
 
-// ─── Existing models ─────────────────────────────────────────
+// ─── Inquiries & Catalog ─────────────────────────────────────
 model ContactInquiry {
   id        Int      @id @default(autoincrement())
   name      String
@@ -76,6 +89,9 @@ model ContactInquiry {
   status    String   @default("PENDING")
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+
+  @@index([email])
+  @@index([status])
 }
 
 model Service {

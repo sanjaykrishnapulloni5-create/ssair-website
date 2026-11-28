@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import SpotlightCard from "@/components/ui/SpotlightCard";
@@ -8,10 +8,33 @@ import { ACADEMY_PROGRAMS } from "@/data/catalog";
 import { useUIModals } from "@/context/UIModalContext";
 import { useAuth } from "@/context/AuthContext";
 
+function resolveFilterFromHash(hash: string): string | null {
+  switch (hash.replace(/^#/, "").toLowerCase()) {
+    case "workshops":
+      return "Workshop";
+    case "internships":
+      return "Internship";
+    case "phd":
+      return "PhD & IEEE R&D";
+    default:
+      return null;
+  }
+}
+
 export default function AcademyPage() {
   const [filter, setFilter] = useState<string>("All");
   const { openStartProject } = useUIModals();
   const { user } = useAuth();
+
+  useEffect(() => {
+    const syncHash = () => {
+      const targetFilter = resolveFilterFromHash(window.location.hash);
+      if (targetFilter) setFilter(targetFilter);
+    };
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, []);
 
   const types = ["All", "Workshop", "Internship", "PhD & IEEE R&D", "Teaching Fellowship"];
   const visiblePrograms =
@@ -94,6 +117,7 @@ export default function AcademyPage() {
 
         {/* Programs Filter & Grid */}
         <section id="workshops" className="space-y-8 scroll-mt-28">
+          <div id="internships" className="sr-only" aria-hidden="true" />
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">

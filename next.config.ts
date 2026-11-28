@@ -4,6 +4,7 @@ const nextConfig: NextConfig = {
   trailingSlash: false,
   poweredByHeader: false,
   images: {
+    unoptimized: true,
     remotePatterns: [
       {
         protocol: "https",
@@ -11,7 +12,13 @@ const nextConfig: NextConfig = {
       },
     ],
   },
-  transpilePackages: ["three", "@react-three/fiber", "@react-three/drei"],
+  webpack: (config) => {
+    config.externals = [
+      ...(Array.isArray(config.externals) ? config.externals : []),
+      "cloudflare:workers",
+    ];
+    return config;
+  },
 };
 
 export default nextConfig;

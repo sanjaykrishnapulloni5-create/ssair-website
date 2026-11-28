@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export type ProjectStatus = "Deployed" | "In Development" | "Prototype" | string;
 
@@ -52,10 +53,12 @@ export default function ProjectCard({
       {/* Product Image */}
       <div className="relative w-full h-52 overflow-hidden bg-slate-100 dark:bg-slate-800">
         {imageUrl ? (
-          <img
+          <Image
             src={imageUrl}
             alt={title}
-            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+            fill
+            sizes="(max-width: 768px) 100vw, 400px"
+            className="object-cover group-hover:scale-105 transition-transform duration-300"
             loading="lazy"
           />
         ) : (

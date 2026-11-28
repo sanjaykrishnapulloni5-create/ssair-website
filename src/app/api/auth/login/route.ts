@@ -1,19 +1,23 @@
 import { NextRequest, NextResponse } from "next/server";
-import prisma from "@/lib/prisma";
+import { dbUsers, toPublicUser } from "@/lib/db";
 import { verifyPassword, createSession } from "@/lib/auth";
+import { cleanText, isValidEmail, logStructured, parseJsonBody } from "@/lib/validation";
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json();
-
-    if (!email || !password) {
-      return NextResponse.json({ error: "Email and password are required" }, { status: 400 });
+    const parsed = await parseJsonBody<{ email?: string; password?: string }>(req);
+    if (!parsed.ok) {
+      return NextResponse.json({ error: parsed.error }, { status: 400 });
     }
 
-    const user = await prisma.user.findUnique({
-      where: { email: email.toLowerCase() },
-    });
+    const email = cleanText(parsed.data.email, 254).toLowerCase();
+    const password = typeof parsed.data.password === "string" ? parsed.data.password : "";
 
+    if (!isValidEmail(email) || !password) {
+      return NextResponse.json({ error: "Valid email and password are required" }, { status: 400 });
+    }
+
+    const user = await dbUsers.findByEmail(email);
     if (!user || !user.passwordHash) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
     }
@@ -23,21 +27,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid email or password" }, { status: 401 });
     }
 
-    await createSession(user.id);
+    await createSession(user.id, req);
 
     return NextResponse.json({
-      user: {
-        id: user.id,
-        name: user.name,
-        email: user.email,
-        avatar: user.avatar,
-        role: user.role,
-        provider: user.provider,
-        createdAt: user.createdAt,
-      },
+      user: toPublicUser(user),
     });
   } catch (error) {
-    console.error("Login error:", error);
+    logStructured("error", "auth_login_error", {
+      error: error instanceof Error ? error.message : String(error),
+    });
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }
