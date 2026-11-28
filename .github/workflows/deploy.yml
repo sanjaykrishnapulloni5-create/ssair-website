@@ -43,8 +43,13 @@ jobs:
         run: npx vinext-cloudflare deploy --skip-build --dry-run
 
       - name: Deploy to Cloudflare Workers
-        if: ${{ (github.event_name == 'push' || github.event_name == 'workflow_dispatch') && secrets.CLOUDFLARE_API_TOKEN != '' }}
-        run: npx vinext-cloudflare deploy --skip-build
+        if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+        run: |
+          if [ -z "${CLOUDFLARE_API_TOKEN:-}" ]; then
+            echo "CLOUDFLARE_API_TOKEN secret is not set; skipping deploy."
+            exit 0
+          fi
+          npx vinext-cloudflare deploy --skip-build
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
