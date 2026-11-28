@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Services & Technologies | SSAIR",
     description:
       "Explore deep-tech engineering capabilities across AI, Robotics, and Defense systems at Sri Srinivasa AI Robotics Pvt. Ltd.",
-    url: "https://ssair.in/services",
+    url: `${process.env.NEXT_PUBLIC_SITE_URL || "https://srinivas.ai"}/services`,
     siteName: "SSAIR",
     type: "website",
   },

@@ -41,7 +41,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://ssair.in"),
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://srinivas.ai"),
   title: "Sri Srinivasa AI Robotics (SSAIR) | Autonomous Robotics, Defense AI & R&D Academy",
   description:
     "Sri Srinivasa AI Robotics Pvt. Ltd. (SSAIR) engineers autonomous drones, defense robotics, industrial 5-bar kinematics, computer vision, and hands-on R&D fellowships. Sister company of Sri Saraswathi AI & Robotics.",
@@ -65,7 +65,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_IN",
-    url: "https://ssair.in",
+    url: process.env.NEXT_PUBLIC_SITE_URL || "https://srinivas.ai",
     siteName: "SSAIR - Sri Srinivasa AI Robotics",
     title: "Sri Srinivasa AI Robotics (SSAIR) | Intelligent Robotics & AI Solutions",
     description:

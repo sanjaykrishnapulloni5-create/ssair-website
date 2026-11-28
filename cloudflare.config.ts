@@ -11,6 +11,12 @@ export default defineConfig({
     entrypoint: "vinext/server/fetch-handler",
     compatibilityDate: "2026-11-28",
     compatibilityFlags: ["nodejs_compat"],
+    domains: [
+      { hostname: "srinivas.ai", production: true, previews: false },
+      { hostname: "www.srinivas.ai", production: true, previews: false },
+    ],
+    workersDev: true,
+    previewUrls: true,
     observability: {
       enabled: true,
       logs: {
